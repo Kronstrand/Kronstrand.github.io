@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Kristian Kronstrand - Digital Artwork</title>
+        <style>
+img {
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+        </style>
+    </head>
+<body>
+    
+  <img name=image5 onLoad="LoadImage('image4','Artworks/red_lady_rendew.jpg')"> 
+  <img name=image4 onLoad="LoadImage('image3','Artworks/gfdgfd.jpg')">
+  <img name=image3 onLoad="LoadImage('image2','Artworks/lady_under_lamp.jpg')">
+  <img name=image2 onLoad="LoadImage('image2ag','Artworks/fdfdf.jpg')">
+  <img name=image2ag onLoad="LoadImage('image2aaa','Artworks/hyhyhyhy.jpg')">
+  <img name=image2aaa onLoad="LoadImage('image1','Artworks/ererer22.jpg')">
+  <img name=image1 onLoad="LoadImage('imagezaz','Artworks/rt4rwddd.jpg')">
+  <img name=imagezaz onLoad="LoadImage('imageza','Artworks/t4t4ttt.jpg')">
+  <img name=imageza onLoad="LoadImage('imagez','Artworks/sddss1.jpg')">
+  <img name=imagez onLoad="LoadImage('imagezz','Artworks/5tgrtrrrr.jpg')">
+  <img name=imagezz onLoad="LoadImage('image13a','Artworks/02-18-10-10.jpg')">
+  <img name=image13a onLoad="LoadImage('image114a','Artworks/IM9i052.jpg')">
+  <img name=image114a onLoad="LoadImage('image11','Artworks/Unti4rwrwrw4r.jpg')">
+  <img name=image11 onLoad="LoadImage('image2aa2','Artworks/Untryrtyrtyrtyrt.jpg')">
+  <img name=image2aa2 onLoad="LoadImage('image2a','Artworks/uuuvea.jpg')">
+  <img name=image2aa onLoad="LoadImage('image2a','Artworks/dfdfd.jpg')">
+  <img name=image2a onLoad="LoadImage('image21','Artworks/Untitledddds-1.jpg')">
+  <img name=image21 onLoad="LoadImage('image22','Artworks/fdfd.jpg')">
+  <img name=image22 onLoad="LoadImage('image222','Artworks/1111.jpg')">
+  <img name=image222 onLoad="LoadImage('imageLast','Artworks/gfggrgrt.jpg')">
+  <img name=imageLast>
+  
+
+<script type="text/javascript">
+    
+var loadingImage = false;
+function LoadImage(imageName,imageFile)
+{
+  if ((!document.images) || loadingImage) return;
+  loadingImage = true;
+  if (document.images[imageName].src.indexOf(imageFile)<0)
+  {
+    document.images[imageName].src = imageFile;
+  }
+  loadingImage = false;
+}
+LoadImage('image5','Artworks/red_lady_rende5.jpg');
+
+</script>
+
+</body>
+
+
+
+
+
+</html>
+
+

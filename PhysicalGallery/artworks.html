@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Kristian Kronstrand - Paintings</title>
+        <style>
+img {
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+body {
+}
+        </style>
+    </head>
+<body>
+  <img name=image5 onLoad="LoadImage('image5ap','Artworks/02.jpg')"> 
+  <img name=image5ap onLoad="LoadImage('image53','Artworks/0.jpg')">  
+  <img name=image53 onLoad="LoadImage('image4','Artworks/2.jpg')"> 
+  <img name=image4 onLoad="LoadImage('image3','Artworks/3.jpg')">
+  <img name=image3 onLoad="LoadImage('image2','Artworks/4.jpg')">
+  <img name=image2 onLoad="LoadImage('image2ag','Artworks/1.jpg')">
+  <img name=image2ag onLoad="LoadImage('image2aaa','Artworks/5.jpg')">
+  <img name=image2aaa onLoad="LoadImage('image1','Artworks/6.jpg')">
+  <img name=image1 onLoad="LoadImage('imagezaz','Artworks/7.jpg')">
+  <img name=imagezaz onLoad="LoadImage('imageza','Artworks/8.jpg')">
+  <img name=imageza onLoad="LoadImage('imagez','Artworks/9.jpg')">
+  <img name=imagez onLoad="LoadImage('imageLast','Artworks/10.jpg')">
+  <img name=imageLast>
+  
+
+<script type="text/javascript">
+    
+var loadingImage = false;
+function LoadImage(imageName,imageFile)
+{
+  if ((!document.images) || loadingImage) return;
+  loadingImage = true;
+  if (document.images[imageName].src.indexOf(imageFile)<0)
+  {
+    document.images[imageName].src = imageFile;
+  }
+  loadingImage = false;
+}
+LoadImage('image5','Artworks/01.jpg');
+
+</script>
+
+</body>
+
+
+
+
+
+</html>
+
+
