@@ -1,0 +1,3338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <title>Caroline</title>
+        
+        <script type="text/javascript">
+            
+            var scene;
+            var evnt;
+            var input;
+            var expectInput;
+            var carolineAffection;
+            var carolineAttachmentToChurch;
+            var occupationRevealed;
+            var hesitation;
+            var saidNothing;
+            var communicateWantToleave;
+            var blessed;
+            var madeFuss;
+            var holdHand;
+            var forced;
+            var letHerGo;
+            var apologized;
+            
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+d.toGMTString();
+                //alert(expires);
+                document.cookie = cname + "=" + cvalue + "; " + expires;
+            }
+            
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0; i<ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1);
+                    if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+                }
+                return "";
+            }
+            function clearSave()
+            {
+                save(-1);
+            }
+            function save(exDate)
+            {
+                setCookie("scene", scene, exDate);
+                setCookie("evnt", evnt, exDate);
+                setCookie("input", input, exDate);
+                setCookie("expectInput", expectInput, exDate);
+                setCookie("carolineAffection", carolineAffection, exDate);
+                setCookie("carolineAttachmentToChurch", carolineAttachmentToChurch, exDate);
+                setCookie("occupationRevealed", occupationRevealed, exDate);
+                setCookie("hesitation", hesitation, exDate);
+                setCookie("saidNothing", saidNothing, exDate);
+                setCookie("communicateWantToleave", communicateWantToleave, exDate);
+                setCookie("blessed", blessed, exDate);
+                setCookie("madeFuss", madeFuss, exDate);
+                setCookie("holdHand", holdHand, exDate);
+                setCookie("forced", forced, exDate);
+                setCookie("letHerGo", letHerGo, exDate);
+                setCookie("apologized", apologized, exDate);
+            }
+            function load()
+            {
+                scene = getCookie("scene");
+                evnt = getCookie("evnt");
+                input = getCookie("input");
+                expectInput = getCookie("expectInput");
+                carolineAffection = getCookie("carolineAffection");
+                carolineAttachmentToChurch = getCookie("carolineAttachmentToChurch");
+                occupationRevealed = getCookie("occupationRevealed");
+                hesitation = getCookie("hesitation");
+                saidNothing = getCookie("saidNothing");
+                communicateWantToleave = getCookie("communicateWantToleave");
+                blessed = getCookie("blessed");
+                madeFuss = getCookie("madeFuss");
+                holdHand = getCookie("holdHand");
+                forced = getCookie("forced");
+                letHerGo = getCookie("letHerGo");
+                apologized = getCookie("apologized");
+            }
+            
+            //start
+            function start()
+            {   
+                scene = "covor";
+                evnt = "0";
+                
+                //$('html').click(function(e) {
+                //$('html').on("touchstart",function(e){
+                  //  keyStroke(e);
+                //});
+                
+                document.addEventListener('touchstart', touchStart, false);
+                
+                //take focus
+                document.getElementById("readerInput").focus();
+                document.getElementById("readerInput").blur();
+                document.getElementById("inputContainer").style.display = "none";
+                
+                nextEvent();
+           }
+           
+           function preload()
+           {
+                scene = "1"; //1
+                evnt = "0"; //0
+                carolineAffection = 11; //11
+                carolineAttachmentToChurch = 16; //16
+                occupationRevealed = false;
+                hesitation = false;
+                wasQuiet = false;
+                communicateWantToLeave = false;
+                blessed = false;
+                madeFuss = false;
+                holdHand = false;
+                forced = false;
+                letHerGo = false;
+                apologized = false;
+           }
+           
+           //          * * * * * * * * * * * * * * * * * * * * * *
+           //          *                                         *
+           //          *   Abandon all hope ye who enter here    *
+           //          *                                         *
+           //          * * * * * * * * * * * * * * * * * * * * * *
+ 
+           
+            function nextEvent()
+            {
+                if (scene != "covor")
+                {
+                    save(62);
+                }
+                if (scene === "covor")
+                {
+                    if (evnt === "0")
+                    {
+                        setText("<div id='coverPage'><span id='headline'>CAROLINE</span><br /><span id='underHeadline'><br /><i>an interactive story by</i><br /><br />Kristian Kronstrand</span><br /><br /><br /><br /><br />Edited and tested by<br /> Gráinne Ryan</div>");
+                        
+                        setTimeout(function(){
+                                if ((scene === "1" && evnt === "0") || (scene === "covor" && evnt === "1"))
+                                {
+                                    
+                                    addText("<div id='coverPage'><br /><span id='continue'><i>Press any key to continue</i></span></div>");
+                                    fadeInById("continue", 5, 0.7);
+                                }
+                            },500);
+                        
+                        if(getCookie("carolineAffection") != "")
+                        {
+                            evnt = "1";
+                        }
+                        else
+                        {
+                            //new game
+                             preload();
+                        }
+                        
+                    }
+                    else if ( evnt === "1")
+                    {
+                        setText("Do you want to <b>continue</b> last game or play <b>new game</b>?");
+                        expectInput = true;
+                        evnt = "2";
+                    }
+                    else if (evnt === "2" && input === "continue")
+                    {
+                        noInput();
+                        preload();
+                        load();
+                        nextEvent();
+                    }
+                    else if (evnt === "2" && input === "new game")
+                    {
+                        noInput();
+                        preload();
+                        nextEvent();
+                    }
+                }
+                else if (scene === "1")
+                {
+                    if (evnt === "0")
+                    {
+                        setText("<i>\“Choose well. Your choice is brief, and yet endless.\”</i>");
+                        addText("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Goethe");
+                        evnt = "0_I";
+                    }
+                    else if (evnt === "0_I")
+                    {
+                        setText("Chapter I");
+                        evnt = "1";
+                    }
+                    else if (evnt === "1")
+                    {
+                        setText("\"I want everything on the menu,\" Caroline says, giving you a challenging smile.");
+                        evnt = "1_1";
+                    }
+                    else if (evnt === "1_1")
+                    {
+                        setText("Type <b>play along</b> to agree to give her everything on the menu.");
+                        addText("Type <b>say nothing</b> to await her reaction.");
+                        evnt = "2";
+                        expectInput = true;
+                    }
+                    else if (evnt === "2" && input ==="say nothing")
+                    {
+                        carolineAffection--;
+                        setText("\"Relax Mr. Scrooge, I'm just kidding.\"");
+                        noInput();
+                        evnt = "2_1";
+                    }
+                    else if (evnt === "2_1")
+                    {
+                        setText("\”I guess I will take the steak.\”");
+                        evnt = "4";
+                    }
+                    else if (evnt === "2" && input === "play along")
+                    {
+                        evnt = "3";
+                        nextEvent();
+                        noInput();
+                    }
+                    else if (evnt === "3")
+                    {
+                        setText("\"Thanks, maybe it's a bit too much,\" she replies with a smile, \"but I <i>will</i> have the big steak.\"");
+                        evnt = "4";
+                    }
+                     else if (evnt === "4")
+                    {
+                        setText("\"And a small crab salad.\"");
+                        evnt = "4_1";
+                    }
+                    else if (evnt === "4_1")
+                    {
+                        setText("\"Also, let's get a bottle of red wine!\"");
+                        evnt = "5";
+                    }
+                    else if (evnt === "5")
+                    {
+                        setText("Type <b>order food</b> to order the food.");
+                        evnt = "6";
+                        expectInput = true;
+                    }
+                    else if (evnt === "6" && input === "order food")
+                    {
+                        setText("After ordering the food for both of you, Caroline brushes her foot up against your leg.");
+                        noInput();
+                        evnt = "6_1";
+                    }
+                    else if (evnt === "6_1")
+                    {
+                        setText("She doesn't say a word, just looks at you, anticipating your reaction.");
+                        evnt = "7";
+                    }
+                    else if (evnt === "7")
+                    {
+                        setText("Type <b>look in eyes</b> to look Caroline in the eyes.");
+                        addText("Type <b>withdraw leg</b> to stop her flirting.");     
+                        evnt = "8";
+                        expectInput = true;
+                    }
+                    else if (evnt === "8" && input === "look in eyes")
+                    {
+                        setText("You look her in the eyes. She has a teasing smile on her face.");
+                        carolineAffection++;
+                        evnt = "9";
+                        noInput();
+                    }
+                    else if (evnt === "9")
+                    {
+                        setText("Her flirting starts to make you feel nervous.");           
+                        evnt = "10";
+                    }
+                    else if (evnt === "10")
+                    {
+                        setText("Type <b>ask question</b> to ask about her job.");
+                        addText("Type <b>withdraw leg</b> to stop her flirting.");           
+                        evnt = "11";
+                        expectInput = true;
+                    }
+                    else if ((evnt === "11" || evnt === "8") && input === "withdraw leg")  
+                    {
+                        setText("Caroline picks up her cigarettes from the table, lights one and leans back."); 
+                        evnt = "11_1";
+                        noInput();
+                        carolineAffection --;
+                    }
+                    else if (evnt === "11_1")
+                    {
+                        setText("The silence becomes more obvious while she inhales the smoke.");  
+                        evnt = "11_2";
+                    }
+                    else if (evnt === "11_2")
+                    {
+                        setText("She looks around, seeming a bit uncomfortable."); 
+                        evnt = "11_3";
+                    }
+                    else if (evnt === "11_3")
+                    {
+                        setText("\"This isn't really my kind of place.\"");    
+                        evnt = "11_4";
+                    }
+                    else if (evnt === "11_4")
+                    {
+                        setText("\"It's too big.\"");
+                        evnt = "11_5";
+                    }
+                    else if (evnt === "11_5")
+                    {
+                        setText("\"Too many people.\"");
+                        evnt = "11_6";
+                    }
+                    else if (evnt === "11_6")
+                    {
+                        setText("Type <b>suggest leaving</b> to suggest to get out of here.");
+                        addText("Type <b>say nothing</b> to say nothing.");
+                        evnt = "11_7";
+                        expectInput = true;
+                    }
+                    else if (evnt ==="11_7" && input ==="say nothing")
+                    {
+                        setText("Caroline doesn't say anything either.");
+                        noInput();
+                        evnt = "11_7_0";
+                    }
+                    else if(evnt ==="11_7_0")
+                    {
+                        setText("The silence is uncomfortable.");                    
+                        evnt ="11_7_1";
+                    }
+                    else if (evnt === "11_7_1")
+                    {
+                        setText("She continues to look around, avoiding eye contact.");    
+                        evnt = "11_7_2";
+                    }
+                    else if (evnt === "11_7_2")
+                    {
+                        setText("While you try to think of something to say, the waiter comes over to your table.");   
+                        evnt ="19";
+                    }
+                    
+                    else if (evnt === "11_7" && input === "suggest leaving")      
+                    {
+                        setText("Caroline lights up immediately.");           
+                        evnt = "11_8";
+                        carolineAffection ++;
+                        noInput();
+                    }
+                    else if (evnt === "11_8")
+                    {
+                        setText("She jumps up and grabs your hand, ready to get out."); 
+                        evnt = "11_9";
+                    }
+                    else if (evnt === "11_9")
+                    {
+                        setText("You see the waiter coming towards your table with the wine you ordered.");
+                        evnt = "11_10";
+                    }
+                    else if (evnt === "11_10")
+                    {
+                        setText("And he has clearly seen you.");
+                        evnt = "11_11";
+                    }
+                    else if (evnt === "11_11")
+                    {
+                        setText("Type <b>stay</b> to not run out.");
+                        addText("Type <b>storm out</b> to run out anyway.");     
+                        evnt = "11_12";
+                        expectInput = true;
+                    }
+                    else if (evnt === "11_12" && input === "stay")
+                    {
+                        setText("You signal Carloline with your eyes to look in the direction of the approaching waiter.");
+                        evnt = "11_12_1";
+                        noInput();
+                    }
+                    else if (evnt === "11_12_1")
+                    {
+                        setText("She freezes for a second, then follows your lead to sit down.");
+                        evnt = "11_12_2";
+                        carolineAffection --;
+                    }
+                    else if (evnt === "11_12_2")
+                    {
+                        setText("\"Everything ok?\" the waiters asks with a professional demeanor.");
+                        evnt = "11_12_3";
+                    }
+                    else if (evnt === "11_12_3")
+                    {
+                        setText("Type <b>yes</b> to assure him that everything is ok.");        
+                        evnt = "11_12_4";
+                        expectInput = true;
+                    }
+                    else if (evnt === "11_12_4" && input === "yes")
+                    {
+                        setText("The waiters smiles approvingly and pours a bit of red wine for you to taste.");  
+                        evnt = "11_12_5";
+                        noInput();
+                    }
+                    else if (evnt === "11_12_5")
+                    {
+                        setText("Type <b>taste wine</b> to taste the wine.");
+                        expectInput = true;
+                        evnt = "11_12_6";
+                    }
+                    else if (evnt ==="11_12_6")
+                    {
+                        setText("The wine seems good, but a bit too dry for your taste.");
+                        noInput();
+                        evnt = "11_12_7";
+                    }
+                    else if (evnt === "11_12_7")
+                    {
+                        setText("The waiter waits for your approval.");
+                        evnt = "11_12_8";
+                    }
+                    else if (evnt === "11_12_8")
+                    {
+                        setText("Type <b>nod</b> to approve of the wine silently.");
+                        addText("Type <b>praise wine</b> to praise the wine for what you hope to be its qualities.");
+                        expectInput = true;
+                        evnt = "11_12_9";
+                    }
+                    else if (evnt === "11_12_9" && input === "nod")
+                    {
+                        setText("The waiter sees your nod, pour the wine and leaves.");
+                        noInput();
+                        evnt = "11_12_10_0";
+                    }
+                    else if (evnt === "11_12_9" && input === "praise wine")
+                    {
+                        setText("The waiter doesn't take much notice of your praise and continues to pour the wine.");    
+                        noInput();
+                        evnt = "11_12_10";
+                    }
+                    else if (evnt === "11_12_10")
+                    {
+                        setText("Caroline however seems satisfied with you trying to impress her."); 
+                        carolineAffection ++;
+                        evnt = "11_12_10_0";
+                    }
+                    else if (evnt === "11_12_10_0")
+                    {
+                        setText("Caroline looks around a bit.");     
+                        evnt = "11_12_11_0";
+                    }
+                    else if (evnt === "11_12_11_0")
+                    {
+                        setText("A moment of silence.");
+                        evnt = "11_12_12_0";
+                    }
+                    else if (evnt === "11_12_12_0")
+                    {
+                        setText("\"Let's get out of here. That waiter creeps me out,\" she says.");
+                        evnt = "11_12_12";
+                    }
+                    else if (evnt === "11_12_12")
+                    {
+                        setText("\"This whole place creeps me out.\"");
+                        evnt = "11_12_13";
+                    }
+                    else if (evnt === "11_12_13")
+                    {
+                        setText("Type <b>let's go</b> to get out of there.");
+                        addText("Type <b>oppose</b> to stay.");
+                        evnt = "11_12_14";
+                        expectInput = true;
+                    }
+                    else if (evnt === "11_12_14" && input === "oppose")
+                    {
+                        setText("\"I think you misunderstood me. I'm leaving, are you coming?\"");
+                        noInput();
+                        evnt = "11_12_14_1";
+                        carolineAffection--;
+                    }
+                    else if (evnt === "11_12_14_1")
+                    {
+                        setText("Type <b>let's go</b> to get out of there.");
+                        evnt = "11_12_14_2";
+                        expectInput = true;
+                    }
+                    else if ((evnt === "11_12_14" || evnt === "11_12_14_2") && (input === "let's go" || input === "lets go"))
+                    {
+                        setText("Both of you get up from the table and leave the place.");
+                        noInput();
+                        scene = "2";
+                        evnt = "0";
+                    }
+                    // END HERE
+                    
+                    else if (evnt === "11" && input === "ask question")
+                    {
+                        setText("You take a deep breath, \"So, you are in publishing?\"");
+                        occupationRevealed = true;
+                        evnt = "12";
+                        noInput();
+                    }
+                    else if (evnt === "12")
+                    {
+                        setText("She looks you deep in eyes, \"Yes.\"");
+                        evnt = "13";
+                    }
+                    else if (evnt === "13")
+                    {
+                        setText("Gently teasing you with her toes stroking your ankle.");
+                        evnt = "14";
+                    }
+                    else if (evnt === "14")
+                    {
+                        setText("You feel the sweat in your armpits.");
+                        evnt = "15";
+                    }
+                    else if (evnt === "15")
+                    {
+                        setText("She finds her way up your leg.");
+                        evnt = "16";
+                    }
+                    else if (evnt === "16")
+                    {
+                        setText("Slowly.");
+                        evnt = "17";
+                    }
+                    else if (evnt === "17")
+                    {
+                        setText("She knows that you are nervous and it pleases her.");
+                        evnt = "18";
+                    }
+                    else if (evnt === "18")
+                    {
+                        setText("Finally the waiter comes to your table and Caroline drops her foot.");
+                        evnt = "19";
+                    }
+                    else if (evnt === "19")
+                    {
+                        setText("He pours some wine for you to taste.");
+                        evnt = "11_12_5";
+                    }
+                    else if (evnt === "11_12" && input === "storm out")
+                    {
+                        setText("You move quickly, half running towards the exit. Caroline follows."); 
+                        evnt = "11_13_1";
+                        noInput();
+                    }
+                    else if (evnt === "11_13_1")
+                    {
+                        setText("As you run through the exit, you glance over your shoulder and see the waiter with a bewildered expression."); 
+                        evnt = "11_13_2";
+                    }
+                    else if (evnt === "11_13_2")
+                    {
+                        setText("Outside you speed up and run down the street, take a couple of lefts and finally stop when your chest hurts too much.");
+                        evnt = "11_13_3";
+                    }
+                    else if (evnt === "11_13_3")
+                    {
+                        setText("No one followed you.");
+                        evnt = "11_13_4";
+                    }
+                    else if (evnt === "11_13_4")
+                    {
+                        setText("You look at each other trying to catch your breath before both of you burst out laughing.");
+                        carolineAffection++;
+                        scene = "2";
+                        evnt = "0";
+                    }
+                }
+                else if (scene === "2")
+                {
+                    if (evnt === "0")
+                    {
+                        setText("Chapter II");
+                        evnt = "1";
+                    }
+                    else if (evnt === "1")
+                    {
+                        setText("Caroline and you decide to go back to her place to make dinner.");
+                        evnt = "2_I";
+                    }
+                    else if (evnt === "2_I")
+                    {
+                        setText("\"So this is my place,\" she says.");
+                        evnt = "2";
+                    }
+                    else if (evnt === "2")
+                    {
+                        setText("Her apartment is a studio, not far from midtown.");
+                        evnt = "3";
+                    }
+                    else if (evnt === "3")
+                    {
+                        setText("Books everywhere, neatly organized.");
+                        evnt = "4";
+                    }
+                    else if (evnt ==="4")
+                    {
+                        setText("Everything else seems a bit messy, but in a cozy way.");   
+                        evnt = "5";
+                    }
+                    else if (evnt === "5")
+                    {
+                        setText("Type <b>nice place</b> to complement her on her apartment.");       
+                        addText("Type <b>look at books</b> to check out some of the titles.");
+                        expectInput = true;
+                        evnt = "6";
+                    }
+                    else if (evnt === "6" && input === "look at books")
+                    {
+                        setText("As you glance across her books, the New Testament catches your eye.");     
+                        noInput();
+                        evnt = "6_1";
+                    }
+                    else if (evnt === "6_1")
+                    {
+                        setText("Type <b>ask about book</b> to ask about the New Testament."); 
+                        addText("Type <b>ignore it</b> to not ask about it.");
+                        expectInput = true;
+                        evnt = "6_2";
+                    }
+                    else if (evnt === "6_2" && input === "ask about book")
+                    {
+                        setText("Caroline ignores your question and says, \"Im starving, let's get something to eat.\"");
+                        evnt = "11";
+                        noInput();
+                    }
+                    else if (evnt === "6_2_1")
+                    {
+                        setText("\"Let's get something to eat, I'm starving.\"");
+                        evnt = "11";
+                        noInput();
+                    }
+                    else if (evnt === "6_2" && input === "ignore it")
+                    {
+                        setText("\"I'm starving,\” Caroline says, \”let's get something to eat.\"");
+                        evnt = "11";
+                        noInput();
+                    }
+                    else if (evnt === "6" && input === "nice place")
+                    {
+                        carolineAffection++;
+                        setText("\"Thanks.\"");
+                        noInput();
+                        evnt = "7";
+                    }
+                    else if (evnt === "7")
+                    {
+                        setText("\"The best part are these huge windows.\"");
+                        evnt = "8";
+                    }
+                    else if (evnt === "8")
+                    {
+                        setText("\"When it's raining, this place is like magic.\"");
+                        evnt = "9";
+                    }
+                    else if (evnt === "9")
+                    {
+                        setText("\"I love it.\"");
+                        evnt = "10";
+                    }
+                    else if (evnt === "10")
+                    {
+                        setText("\"Well, let's get something to eat, I'm starving, \"");
+                        evnt = "11";
+                    }
+                    else if (evnt === "11")
+                    {
+                        setText("\"Is spaghetti ok? I have my own secret recipe.\"");
+                        evnt = "12";
+                    }
+                    else if (evnt === "12")
+                    {
+                        setText("Type <b>sounds good</b> to approve.");
+                        addText("Type <b>secret?</b> to ask teasingly about the secret recipe.");
+                        expectInput = true;
+                        evnt = "13";
+                    }
+                    else if (evnt === "13" && (input === "secret?" || input === "secret"))
+                    {
+                        setText("\"Who knows, maybe I will tell you one day.\"");
+                        noInput();
+                        evnt = "14_I";
+                    }
+                    else if (evnt === "13" && input === "sounds good")
+                    {
+                        noInput();
+                        evnt = "14_I";
+                        nextEvent();
+                    }
+                    else if (evnt === "14_I")
+                    {
+                        setText("Caroline starts preparing the food while you find a seat.");
+                        evnt = "14";
+                    }
+                    else if (evnt === "14")
+                    {
+                        setText("Looking over her shoulder she smiles and asks, \"Can you chop the carrots?\"");
+                        evnt = "17";
+                    }
+                    else if (evnt === "17")
+                    {
+                        setText("Type <b>sure</b> to chop the carrots.");
+                        addText("Type <b>you read a lot?</b> to ask about her many books.");
+                        expectInput = true;
+                        evnt = "18";
+                    }
+                    else if (evnt === "18" && input === "sure")
+                    {
+                        setText("You get up and help out.");
+                        evnt = "19";
+                        carolineAffection++;
+                        noInput();
+                    }
+                    else if (evnt === "19")
+                    {
+                        setText("Type <b>you read a lot?</b> to ask about her many books.");
+                        expectInput = true;
+                        evnt = "20";
+                    }
+                    else if ((evnt === "20" || evnt === "18") && (input === "you read a lot?" || input === "you read a lot"))
+                    {
+                        setText("\"Yeah, but I don't have so much time to read what I want anymore.\"");
+                        evnt = "21";
+                        noInput();
+                    }
+                    else if (evnt === "21")
+                    {
+                        setText("\"When I get home from work I often have to read work related manuscripts.\"");
+                        evnt = "22";
+                    }
+                    else if (evnt === "22")
+                    {
+                        setText("\"But I don't mind that much, being an assistant editor is not bad.\"");
+                        evnt = "23";
+                    }
+                    else if (evnt === "23")
+                    {
+                        setText("Type <b>you write yourself?</b> to ask about her writing.");
+                        evnt = "24";
+                        expectInput = true;
+                    }
+                    else if (evnt === "24" && (input === "you write yourself?" || input === "you write yourself"))
+                    {
+                        noInput();
+                        setText("\"I have written some poems and short stories.\"");
+                        evnt = "25_0";
+                    }
+                    else if (evnt === "25_0")
+                    {
+                        setText("\"Nothing published.\"");
+                        evnt = "25";
+                    }
+                    else if (evnt === "25")
+                    {
+                        setText("\"I might show you some after dinner.\"");
+                        evnt = "26";
+                    }
+                    else if (evnt === "26")
+                    {
+                        setText("You finish making the dinner and sit down on her couch to eat.");
+                        evnt = "27";
+                    }
+                    else if (evnt === "27")
+                    {
+                        setText("\"This is more like it,\" she says, feeling good in her own environment.");
+                        evnt = "29";
+                    }
+                    else if (evnt === "29")
+                    {
+                        setText("\"But we need music!\"");
+                        evnt = "30";
+                    }
+                    else if (evnt === "30")
+                    {
+                        setText("She gets up to her CD collection, \"What do you want to listen to?\"");
+                        evnt = "31";
+                    }
+                    else if (evnt === "31")
+                    {
+                        setText("Type <b>nothing too loud</b> to suggest something not too loud.");
+                        addText("Type <b>you choose</b> to tell her to choose.");
+                        evnt = "32";
+                        expectInput = true;
+                    }
+                    else if (evnt === "32" && (input === "nothing too loud" || input === "you choose"))
+                    {
+                        if (input === "you choose")
+                        {
+                            carolineAffection++;
+                        }
+                        noInput();
+                        setText("\"Ok, I hope you like Pink Floyd,\" she says putting the CD on her stereo.");
+                        evnt = "33";
+                    }
+                    else if (evnt === "33")
+                    {
+                        setText("The intro from The Dark Side of the Moon fills the room with the rhythm of its beating heart.");
+                        evnt = "34";
+                    }
+                    else if (evnt === "34")
+                    {
+                        setText("You both sit there silently listening to the music for some time while finishing your spaghetti.");
+                        evnt = "36";
+                    }
+                    else if (evnt === "36")
+                    {
+                        setText("\"Do you wanna hear one of my poems?\"");
+                        evnt = "37";
+                    }
+                    else if (evnt === "37")
+                    {
+                        setText("Type <b>I would love to</b> to encourage her to read one aloud.");
+                        addText("Type <b>I have to leave</b> to avoid the poem and prepare for leaving.");
+                        expectInput = true;
+                        evnt = "38";
+                    }
+                    else if ((evnt === "38" && input === "i have to leave") || (evnt === "59_2_5" && input === "i should going"))
+                    {
+                        carolineAffection--;
+                        setText("\"Oh.\"");
+                        evnt = "38_1";
+                        noInput();
+                    }
+                    else if (evnt === "38_1")
+                    {
+                        setText("\”Well, ok.\”");
+                        evnt = "38_2";
+                    }
+                    else if (evnt === "38_2")
+                    {
+                        setText("But there is someone I want you to meet.");
+                        evnt = "79";
+                    }
+                    else if (evnt === "38" && input === "i would love to")
+                    {
+                        noInput();
+                        setText("She gets up and walks over to a pile of notebooks and scrap papers.");
+                        evnt = "40";
+                        carolineAffection++;
+                    }
+                    else if (evnt === "40")
+                    {
+                        setText("\"Let me just see.\"");
+                        evnt = "41";
+                    }
+                    else if (evnt === "41")
+                    {
+                        setText("She grabs a small notebook, returns to the couch and sits down.");
+                        evnt = "41_I";
+                    }
+                    else if (evnt === "41_I")
+                    {
+                        setText("You feel her thigh touching yours.");
+                        evnt = "42";
+                    }
+                    else if (evnt === "42")
+                    {
+                        setText("\"Are you ready?\" she asks.");
+                        evnt = "43";
+                    }
+                    else if (evnt === "43")
+                    {
+                        setText("Type <b>yes</b> to confirm that you are ready.");
+                        expectInput = true;
+                        evnt = "44";
+                    }
+                    else if (evnt === "44" && input === "yes")
+                    {
+                        noInput();
+                        setText("\"Ok, here goes.\"");
+                        evnt = "45";
+                    }
+                    else if (evnt === "45")
+                    {
+                        setText("<i>The crow in my stomach released through my spine</i>");
+                        evnt = "46";
+                    }
+                    else if (evnt === "46")
+                    {
+                        setText("<i>I'm feeling my fear for the very first time</i>");
+                        evnt = "48";
+                    }
+                    else if (evnt === "48") 
+                   {
+                       setText("<i>It bites and it scratches, but I don't mind</i>");
+                       
+                        evnt = "49";
+                    }
+                    else if (evnt === "49")
+                    {
+                        setText("<i>Emptiness in time is more than divine</i>");   
+                        evnt = "50";
+                    }
+                    else if (evnt === "50")
+                    {
+                        setText("<i>But little animals</i>");
+                        evnt = "51";
+                    }
+                    else if (evnt === "51")
+                    {
+                        setText("<i>Fill up my void</i>");
+                        evnt = "52";
+                    }
+                    else if (evnt === "52")
+                    {
+                        setText("<i>While looking at the crow</i>");
+                        evnt = "53";
+                    }
+                    else if (evnt === "53")
+                    {
+                        setText("<i>I am no more annoyed</i>");
+                        evnt = "54";
+                    }
+                    else if (evnt === "54")
+                    {
+                        setText("She looks up from her notebook.");
+                        evnt = "56";
+                    }
+                    else if (evnt === "56")
+                    {
+                        setText("\"It's a bit silly,\" she says with a shy smile.");
+                        evnt = "57";
+                    }
+                    else if (evnt === "57")
+                    {
+                        setText("Type <b>I liked it</b> to say you liked it."); 
+                        addText("Type <b>ask about the poem</b> to avoid commenting.");
+                        evnt = "58";
+                        expectInput = true;
+                        setTimeout(function(){hesitation = true;},5000);
+                    }
+                    else if (evnt === "58" && (input === "i liked it" || input === "I liked it"))
+                    {
+                        if (hesitation === true)
+                        {
+                            setText("\"Don't say it if you don't mean it. I saw your hesitation.\"");
+                            carolineAffection--;
+                            evnt = "59_1";
+                        }
+                        else if (hesitation === false)
+                        {
+                            setText("Caroline closes the notebook, looks up and gives you a subtle smile.");
+                            evnt = "59";
+                            carolineAffection++;
+                        }
+                        noInput();
+                    }
+                    else if (evnt === "59_1")
+                    {
+                        setText("Type <b>reassure</b> to reassure her that you meant it.");
+                        addText("Type <b>ask about the poem</b> avoid answering.");
+                        evnt = "59_2";
+                        expectInput = true;
+                    }
+                    else if ((evnt === "59_2" || evnt === "58" || evnt === "61") && input === "ask about the poem")
+                    {
+                        setText("\"I wrote it a year ago when I was feeling a bit lost.\"");
+                        evnt = "59_2_1";
+                        noInput();
+                    }
+                    else if (evnt === "59_2_1")
+                    {
+                        setText("\"I felt trapped.\"");
+                        evnt = "59_2_2";
+                    }
+                    else if (evnt === "59_2_2")
+                    {
+                        setText("\"Writing helped me through it.\"");
+                        evnt = "59_2_3";
+                    }
+                    else if (evnt === "59_2_3")
+                    {
+                        setText("\"But that was before I found something better.\"");
+                        evnt = "59_2_4";
+                    }
+                    else if (evnt === "59_2_4")
+                    {
+                        setText("Type <b>what?</b> to ask what she found.");
+                        addText("Type <b>I should get going</b> to prepare for leaving.");
+                        expectInput = true;
+                        evnt = "59_2_5";
+                    }
+                    else if (evnt === "59_2_5" && (input === "what?" || input === "what"))
+                    {
+                        setText("Caroline looks a bit uncomfortable.");
+                        noInput();
+                        evnt = "59_2_6";
+                    }
+                    else if (evnt === "59_2_6")
+                    {
+                         setText("\"I would rather show you.\"");
+                         evnt = "59_2_7";
+                    }
+                    else if (evnt === "59_2_7")
+                    {
+                        setText("\"But not now.\”");
+                        evnt = "79";
+                    }
+                    else if (evnt === "59_2" && input === "reassure")
+                    {
+                        setText("\"Ok, I believe you.\"");
+                        carolineAffection++;
+                        evnt = "59_3";
+                        noInput();
+                    }
+                    else if (evnt === "59_3")
+                    {
+                        setText("She looks at you and smiles.");
+                        evnt = "59";
+                    }
+                    else if (evnt === "59")
+                    {
+                        setText("Your attention is drawn to her red lips.");
+                        evnt = "60";
+                    }
+                    else if (evnt === "60")
+                    {
+                        setText("Type <b>kiss her</b> to lean in for a kiss");
+                        addText("Type <b>ask about the poem</b> to ask about the poem.");
+                        expectInput = true;
+                        evnt = "61";
+                    }
+                    else if (evnt === "61" && input === "kiss her")
+                    {
+                        noInput();
+                        if (carolineAffection < 13) 
+                        {
+                            setText("You lean in for the kiss, but she pulls back.");
+                            evnt = "71";
+                        }
+                        else
+                        {
+                            setText("You lean in. She responds with some hesitation but gives in to it.");
+                            evnt = "62";  
+                        } 
+                    }
+                    else if (evnt === "62")
+                    {
+                        setText("You kiss tenderly for several seconds.");
+                        evnt = "63";
+                    }
+                    else if (evnt === "63")
+                    {
+                        setText("Caroline then pulls back and looks at you with a satisfied smile.");
+                        evnt = "64";
+                    }
+                    else if (evnt === "64")
+                    {
+                        setText("She doesn't have to say, you can tell that she enjoyed it.");
+                        evnt = "65";
+                    }
+                    else if (evnt ==="65")
+                    {
+                        setText("Type <b>kiss her again</b> to kiss her again.");
+                        expectInput = true;
+                        evnt = "66";
+                    }
+                    else if (evnt === "66" && input === "kiss her again")
+                    {
+                        setText("The second kiss feels more natural then the first.");
+                        noInput();
+                        evnt = "67";
+                    }
+                    else if (evnt === "67")
+                    {
+                        setText("You feel an urge to touch her body.");
+                        evnt = "69";
+                    }
+                    else if (evnt === "69")
+                    {
+                        setText("Type <b>caress her thigh</b> to caress her thigh.");
+                        evnt = "70";
+                        expectInput = true; 
+                   }
+                    else if (evnt === "70" && input === "caress her thigh")
+                    {
+                        setText("As you touch her, she pulls back and removes your hand.");
+                        evnt = "71";
+                        noInput();
+                    }
+                    else if (evnt === "71")
+                    {
+                        setText("\"I'm sorry, but I can't.\"");
+                        evnt = "72";
+                    }
+                    else if (evnt === "72")
+                    {
+                        setText("\"It's...\"");
+                        evnt = "73";
+                    }
+                    else if (evnt === "73")
+                    {
+                       setText("Type <b>what is it?</b> to ask about what's wrong.");
+                       evnt = "74";
+                       expectInput = true;
+                    }
+                    else if (evnt === "74" && (input === "what is it?" || input === "what is it"))
+                    {
+                        setText("\"We are not supposed to kiss.\"");
+                        evnt = "75";
+                        noInput();
+                    }
+                    else if(evnt === "75")
+                    {
+                        setText("\”I know it sounds a bit strange, but I have my reasons.\”");
+                        evnt = "78";
+                    }
+                    else if (evnt === "78")
+                    {
+                        setText("\"I will explain it. But not now.\"");
+                        evnt = "79";    
+                    }
+                    else if (evnt === "79")
+                    {
+                        setText("\"Meet me tomorrow at Hydra Park.\"");
+                        evnt = "79_0";    
+                    }
+                    else if (evnt === "79_0")
+                    {
+                        setText("\"I'll call you.\"");
+                        evnt = "80";
+                    }
+                    else if (evnt === "80")
+                    {
+                        setText("Type <b>leave</b> to leave her apartment.");
+                        evnt = "81";
+                        expectInput = true;
+                    }
+                    else if (evnt === "81" && input === "leave")
+                    {
+                        scene = "3";
+                        evnt = "0";
+                        noInput();
+                        nextEvent();
+                    }
+                }
+                else if (scene === "3")
+                {
+                    if (evnt === "0")
+                    {
+                        setText("Chapter III");
+                        evnt = "2";
+                    }
+                    else if (evnt === "2")
+                    {
+                        setText("Next day at Hydra Park.");
+                        evnt = "3";
+                    }
+                    else if (evnt === "3")
+                    {
+                        setText("\"I'm glad you came,\" Caroline says and motions you to walk with her away from the park.");
+                        evnt = "5";
+                    }
+                    else if (evnt === "5")
+                    {
+                        setText("Type <b>where are we going?</b> to ask where you are going.");
+                        addText("Type <b>follow</b> to follow Caroline.");
+                        evnt = "6";
+                        expectInput = true;
+                    }
+                    else if (evnt === "6" && (input === "where are we going" || input === "where are we going?"))
+                    {
+                        setText("\"There is someone you have to meet.\"");
+                        evnt = "7";
+                        noInput();
+                    }
+                    
+                    else if (evnt === "7")
+                    {
+                        setText("\"Come on now!\"");
+                        evnt = "8";
+                    }
+                    else if (evnt === "8")
+                    {
+                        setText("Type <b>follow</b> to follow Caroline.");
+                        evnt = "9";
+                        expectInput = true;
+                    }
+                    else if ((evnt === "6" || evnt === "9") && input === "follow")
+                    {
+                        setText("Caroline walks fast, she seems excited.");
+                        noInput();
+                        evnt = "10";
+                    }
+                    else if (evnt === "10")
+                    {
+                        setText("\"It's just over here on the other side of the street.\"");
+                        evnt = "11";
+                    }
+                    else if (evnt === "11")
+                    {
+                        setText("You cross the street to the entrance of an old but well kept building.");
+                        evnt = "12";
+                    }
+                    else if (evnt === "12")
+                    {
+                        setText("The building has two large, almost churchlike windows with a figure consisting of different shapes of colored glass.");
+                        evnt = "13";
+                    }
+                    else if (evnt === "13")
+                    {
+                        setText("Type <b>check out windows</b> to look closer at them.");
+                        addText("Type <b>what is this place?</b> to question Caroline about this place.");
+                        expectInput = true;
+                        evnt = "14";
+                    }
+                    else if (evnt === "14" && (input === "what is this place?" || input === "what is this place"))
+                    {
+                        setText("\"It's my secret sanctuary.\"");
+                        noInput();
+                        evnt = "16";
+                    }
+                    else if (evnt === "14" && input === "check out windows")
+                    {
+                        setText("The first window pictures some kind of exalted woman with a yellow or golden aura.");
+                        evnt = "15";
+                        noInput();
+                    }
+                    else if (evnt === "15")
+                    {
+                        setText("The second window has the appearance of a peaceful child wrapped in white linen cloth.");
+                        evnt = "16";
+                    }
+                    else if (evnt === "16")
+                    {
+                        setText("\"Let's go inside,\" Caroline says. She is already at the entrance door.");
+                        evnt = "17";
+                    }
+                    else if (evnt === "17")
+                    {
+                        setText("Type <b>go inside</b> to follow Caroline through the front door.");
+                        evnt = "18";
+                        expectInput = true;
+                    }
+                    else if (evnt === "18" && input === "go inside")
+                    {
+                        setText("When inside Caroline grabs your hand and leads you up a spiral staircase.");
+                        evnt = "19";
+                        noInput();
+                    }
+                    else if (evnt === "19")
+                    {
+                        setText("\"The Priestess is waiting,\" she says climbing the stairs.");
+                        evnt = "20";
+                    }
+                    else if (evnt === "20")
+                    {
+                        setText("At the top of the staircase you find a small entrance room which leads to a larger room, just beneath the roof.");  
+                        evnt = "21";
+                    }
+                    else if (evnt === "21")
+                    {
+                        setText("Type <b>enter room</b> to go inside.");
+                        addText("Type <b>wait for Caroline</b> to make Caroline go first.");
+                        evnt = "22";
+                        expectInput = true;
+                    }
+                    else if (evnt === "22" && input === "wait for caroline")
+                    {
+                        setText("\"You have to meet her by yourself.\"");
+                        noInput();
+                        evnt = "23";
+                    }
+                    else if (evnt === "23")
+                    {
+                        setText("\"Don't worry. She will love you.\"");
+                       evnt = "24";
+                    }
+                    else if (evnt === "24")
+                    {
+                        setText("Type <b>enter room</b> to go inside.");
+                        evnt = "25";
+                        expectInput = true;
+                    }
+                    else if ((evnt === "25" || evnt === "22") && input === "enter room")
+                    {
+                        noInput();
+                        setText("\"Come in.\"");
+                        evnt = "26"; 
+                   }
+                    else if (evnt === "26")
+                    {
+                        setText("The woman speaking seems to be in her late forties. You get the feeling she is older than she looks.");  
+                        evnt = "27";
+                    }
+                    else if (evnt === "27")
+                    {
+                        setText("Her piercing eyes follow you as you walk towards her desk.");  
+                        evnt = "28";
+                    }
+                    else if (evnt === "28")
+                    {
+                        setText("\"Please, sit down.\"");
+                        evnt = "29";
+                    }
+                    else if (evnt === "29")
+                    {
+                        setText("Type <b>sit down</b> to sit down in the chair in front of her desk.");
+                        expectInput = true;
+                        evnt = "30";
+                    }
+                    else if (evnt === "30" && input === "sit down")
+                    {
+                        setText("\"Before I explain why you are here, I will ask you some questions.\"");
+                        noInput();
+                        evnt = "31_0";
+                    }
+                    else if (evnt === "31_0")
+                    {
+                        setText("\"There is no wrong answers.\"");
+                        evnt = "31";
+                    }
+                    else if (evnt === "31")
+                    {
+                        setText("\"Here is the first one.\"");
+                        evnt = "32";
+                    }
+                    else if (evnt === "32")
+                    {
+                        expectInput = true;
+                        setText("\"Would you rather <b>kill</b> or <b>be killed</b>?\"");
+                        evnt = "34";
+                    }
+                    else if (evnt === "34" && (input === "kill" || input === "be killed"))
+                    {
+                        setText("\"Have you kissed Caroline? Just <b>yes</b> or <b>no</b>.\"");
+                        evnt = "35";
+                    }
+                     else if (evnt === "35" && (input === "yes" || input === "no"))
+                    {
+                        setText("\"Which is best? <b>Subjectivity</b> or <b>objectivity</b>.\"");
+                        evnt = "36_I";
+                    }
+                    else if (evnt === "36_I" && (input === "Subjectivity" | input === "subjectivity" || input === "objectivity"))
+                    {
+                        setText("\"Have you thought about having intercourse with her? Just <b>yes</b> or <b>no</b>.\"");
+                        evnt = "36";
+                    }
+                    else if (evnt === "36" && (input === "yes" || input === "no"))                                     
+                    {
+                        setText("\"Do you find my questions intimidating? Just <b>yes</b> or <b>no</b>.\"");
+                        evnt = "37";
+                    }
+                    else if (evnt === "37" && (input === "yes" || input === "no"))
+                    {
+                        setText("\"Do you forgive yourself? Just <b>yes</b> or <b>no</b>.\"");
+                        evnt = "38";
+                    }
+                    else if (evnt === "38")
+                    {
+                        noInput();
+                        setText("\"Thanks. You did good.\"");
+                        evnt = "39";
+                    }
+                    else if (evnt === "39")
+                    {
+                        setText("Type <b>is this a real church?</b> to ask about the place.");
+                        expectInput = true;
+                        evnt = "40";
+                    }
+                    else if (evnt === "40" && (input === "is this a real church?" || input === "is this a real church"))
+                    {
+                        setText("\"This is the Church of the Second Messiah.\"");
+                        noInput();
+                        evnt = "41";
+                    }
+                    else if (evnt === "41")
+                    {
+                        setText("\"We are awaiting the birth of God's second son.\"");
+                        evnt = "42";
+                    }
+                    else if (evnt === "42")
+                    {
+                        setText("\"It is our mission to help God make way for our new savior.\"");
+                        evnt = "43_I";
+                    }
+                    else if (evnt === "43_I")
+                    {
+                        setText("She pauses for a second.");
+                        evnt = "43";
+                    }
+                    else if (evnt === "43")
+                    {
+                        setText("\"Have you ever asked yourself why Jesus should be the only son of God?\"");
+                        evnt = "44";
+                    }
+                    else if (evnt === "44")
+                    {
+                        setText("\"People are in need of a strong leader. Not just a symbol, but a physical being who can inspire.\"");
+                        evnt = "45";
+                    }
+                    else if (evnt === "45")
+                    {
+                        setText("\"They need to wake up and see what they are doing. Both to others and to themselves.\"");
+                        evnt = "46";
+                    }
+                    else if (evnt === "46")
+                    {
+                        setText("Type <b>find Caroline</b> to excuse yourself and go find Caroline.");
+                        addText("Type <b>ask about the people</b> to find out what she thinks they are doing.");
+                        expectInput = true;
+                        evnt = "47";
+                    }
+                    else if (evnt === "47" && input === "ask about the people")
+                    {
+                        noInput();
+                        setText("\"Forsaking their ideals.\"");
+                        evnt = "48_1";
+                    }
+                    else if (evnt === "48_1")
+                    {
+                        setText("\”But what they don't understand is that they are not <i>theirs</i> to forsake in the first place.\”");  
+                        evnt = "48_2";
+                    }
+                    else if (evnt === "48_2")
+                    {
+                        setText("\”And by doing so, they in essence forsake others <i>as well as</i> themselves.\”");     
+                        evnt = "48_3";
+                    }
+                    else if (evnt === "48_3")
+                    {
+                        setText("Type <b>why?</b> to ask why they forsake themselves.");
+                        addText("Type <b>find Caroline</b> to excuse yourself and go find Caroline.");
+                        expectInput = true;
+                        evnt = "48_4";
+                    }
+                    else if (evnt === "48_4" && (input === "why" || input === "why?"))
+                    {
+                        noInput();
+                        setText("\”Because we are all one.\”");
+                        evnt = "48_5";
+                    }
+                    else if (evnt === "48_5")
+                    {
+                        setText("\"Deep down in your soul you know what I mean.\"");
+                        evnt = "48_6";
+                    }
+                    else if (evnt === "48_6")
+                    {
+                        setText("Type <b>find Caroline</b> to excuse yourself and go find Caroline.");
+                        expectInput = true;
+                        evnt = "48_7";
+                    }
+                    else if ((evnt === "47" || evnt === "48_4" || evnt === "48_7") && input === "find caroline")
+                    {
+                        noInput();
+                        setText("\"Caroline is down in the nave preparing for the service today,\" she responds.");      
+                        evnt = "48";
+                    }
+                    else if (evnt === "48")
+                    {
+                        setText("When you get down Caroline is decorating the altar with fresh flowers."); 
+                        evnt = "49";
+                    }
+                    else if (evnt === "49")
+                    {
+                        setText("\"How did it go?\" Caroline asks when she sees you.");
+                        evnt = "50";
+                    }
+                    else if (evnt === "50")
+                    {
+                        
+                        setText("Type <b>let's leave</b> to ask Caroline to leave with you.");
+                        addText("Type <b>good</b> to reassure her that it went well.");
+                        addText("Type <b>say nothing</b> to say nothing.");
+                        expectInput = true;
+                        evnt = "51";
+                    }
+                    else if (evnt === "51" && input === "say nothing")
+                    {
+                        noInput();
+                        setText("\"I hope she didn't scare you too much. She can be a bit intense sometimes.\"");
+                        wasQuiet = true;
+                        evnt = "51_1";
+                    }
+                    else if (evnt === "51_1")
+                    {
+                        setText("\"Do you mind staying for the ceremony then?\"");
+                        evnt = "52";
+                    }
+                    else if (evnt === "51" && input === "good")
+                    {
+                        noInput();
+                        setText("\"I'm glad she didn't scare you too much. She can be a bit intense sometimes.\"");
+                        evnt = "51_1";
+                        carolineAttachmentToChurch++;
+                    }
+                    else if (evnt === "51_1")
+                    {
+                        setText("\"But I guess you won't mind staying for the ceremony then.\"");   
+                        evnt = "52";
+                    }
+                    else if (evnt === "51" && (input === "let's leave" || input === "lets leave"))
+                    {
+                        noInput();
+                        setText("\"I can't leave. I have been looking forward to this ceremony.\"");
+                        evnt = "52";
+                    }
+                    else if (evnt === "52")
+                    {
+                        setText("Type <b>what ceremony?</b> to ask about the ceremony.");
+                        addText("Type <b>say nothing</b> to say nothing.");
+                        expectInput = true;
+                        evnt = "53";
+                    }
+                    else if (evnt === "53" && (input === "what ceremony?" || input === "what ceremony" || input === "say nothing"))
+                    {
+                        noInput();
+                        evnt = "53_I";
+                        if (input === "say nothing" && wasQuiet === true)
+                        {
+                            setText("\”Don't be so quiet.\”");
+                        }
+                        else
+                        {
+                            nextEvent();
+                        }
+                    }
+                    else if (evnt === "53_I")
+                    {
+                        setText("\"I want you to get a blessing from the Priestess today.\"");
+                        evnt = "54";
+                    }
+                    else if (evnt === "54")
+                    {
+                        setText("You hear people coming through the front door, speaking quietly to each other.");
+                        evnt = "55";
+                    }
+                    else if (evnt === "55")
+                    {
+                        setText("\"I was really hoping you would join,\" Caroline continues.");
+                        evnt = "57";
+                    }
+                    else if (evnt === "57")
+                    {
+                        setText("Type <b>I'm not sure</b> to express doubt.");
+                        addText("Type <b>I want to leave</b> to state clearly that you want to leave.");
+                        addText("Type <b>I'll stay</b> to say that you are staying.");
+                        expectInput = true;
+                        evnt = "58";
+                    }
+                    else if (evnt === "58" && (input === "I'll stay" || input === "ill stay"))
+                    {
+                        setText("\”Good, that means a lot to me.\”");
+                        carolineAffection++;
+                        evnt = "58_1";
+                        noInput();                                                                 
+                    }
+                    else if (evnt === "58_1")
+                    {
+                        setText("More people are coming in. Some have already seated themselves in the pews.");
+                        evnt = "58_2";
+                    }
+                    else if (evnt === "58_2")
+                    {
+                        setText("A deep bell sounds and reverberates through the building.");  
+                        evnt = "63_3";
+                    }
+                    else if (evnt === "58" && input === "i want to leave")
+                    {
+                        noInput();
+                        setText("\”If you have to leave, then leave.\”");      
+                        evnt = "58_a_1";
+                        communicateWantToLeave = true;
+                    }
+                    else if (evnt === "58_a_1")
+                    {
+                        setText("\”I don't want to force you.\”");
+                        evnt = "62";
+                    }
+                    else if (evnt === "58" && input === "im not sure")             
+                    {
+                        setText("\"Come on, it'll be beautiful.\"");
+                        evnt = "59";
+                        noInput();
+                    }
+                    else if (evnt === "59")
+                    {
+                        setText("\"Do it for my sake. I will make it up to you, I promise.\"");
+                        evnt = "60";
+                    }
+                    else if (evnt === "60")
+                    {
+                        setText("More people are coming in. Some have already seated themselves in the pews.");
+                        evnt = "61";
+                    }
+                    else if (evnt === "61")
+                    {
+                        setText("\"Please stay,\" she says smiling her most convincing smile.");
+                        evnt = "62";
+                    }
+                    else if (evnt === "62")
+                    {
+                        setText("Type <b>leave</b> to leave without Caroline.");
+                        addText("Type <b>stay</b> to stay for the ceremony.");
+                        expectInput = true;
+                        evnt = "63";
+                    }
+                    else if (evnt === "63" && input === "stay")
+                    {
+                        setText("\"Thanks, it means a lot to me.\"");
+                        carolineAffection++;
+                        evnt = "63_2";
+                        noInput();
+                    }
+
+                    else if (evnt === "63_2")
+                    {
+                        setText("The sound of a deep bell reverberates through the building.");
+                        evnt = "63_3";
+                    }
+                    else if (evnt === "63_3")
+                    {
+                        setText("\"Three rings and we begin,\" Caroline explains.");
+                        evnt = "63_4";
+                    }
+                    else if (evnt === "63_4")
+                    {
+                        setText("She then finds a seat and gestures you to join her by tapping the free seat beside her.");
+                        evnt = "63_5";
+                    }
+                    else if (evnt === "63_5")
+                    {
+                        setText("Type <b>sit down</b> to join Caroline.");
+                        evnt = "63_6";
+                        expectInput = true;
+                    }
+                    else if (evnt === "63_6" && input === "sit down")
+                    {
+                        noInput();
+                        setText("The deep bell sounds again.");
+                        evnt = "63_7";
+                    }
+                    else if (evnt === "63_7")
+                    {
+                        setText("From upstairs the priestess comes down wearing a black robe and walks over to you.");
+                        evnt = "63_8";
+                    }
+                    else if (evnt === "63_8")
+                    {
+                        setText("\"I'm glad you chose to open your heart up to us,\" she says.");
+                        evnt = "63_9";
+                    }
+                    else if (evnt === "63_9")
+                    {
+                        setText("Everyone else in the church has found their seats and are now waiting for the service to begin.");
+                        evnt = "63_10";
+                    }
+                    else if (evnt === "63_10")
+                    {
+                        setText("For the third time the bell rings and everyone becomes quiet.");
+                        evnt ="63_11";
+                    }
+                    else if (evnt === "63_11")
+                    {
+                        setText("The Priestess walks up to the Altar.");
+                        evnt = "90_I";
+                    }
+                    else if (evnt === "63" && input === "leave")
+                    {
+                        noInput();
+                        setText("You feel bad for leaving Caroline as you walk down the aisle towards the front door.");
+                        evnt = "64";
+                        if (communicateWantToLeave === false)
+                        {
+                            carolineAffection--;
+                        }
+                    }
+                    else if (evnt === "64")
+                    {
+                        setText("The sound of a deep bell reverberates through the building.");      
+                        evnt = "65";
+                    }
+                    else if (evnt === "65")
+                    {
+                        setText("You grab the door handle to open the door.");
+                        evnt = "65_I";
+                    }
+                    else if (evnt === "65_I")
+                    {
+                        setText("It's locked.");
+                        evnt = "66";
+                    }
+                    else if (evnt === "66")
+                    {
+                        setText("The Priestess comes down the spiral staircase.");
+                        evnt = "67";
+                    }
+                    else if (evnt === "67")
+                    {
+                        setText("\"Are you leaving already?\" she asks.");
+                        evnt = "68";
+                    }
+                    else if (evnt === "68")
+                    {
+                        setText("Type <b>I can't</b> to point to the locked door.");
+                        expectInput = true;
+                        evnt = "69";
+                    }
+                    else if (evnt === "69" && (input === "I can't" || input === "i cant"))
+                    {
+                        setText("The deep bell sounds again.");
+                        evnt = "71";
+                        noInput();
+                    }
+                    else if (evnt === "71")
+                    {
+                        setText("\"We are starting now. After the bells have been rung, no one is allowed in.\"");
+                        evnt = "72";
+                    }
+                    else if (evnt === "72")
+                    {
+                        setText("\"Or out.\"");
+                        evnt = "73";
+                    }
+                    else if (evnt === "73")
+                    {
+                        setText("\"Why not take a seat beside Caroline. She has told me that she likes you.\"");
+                        evnt = "74";
+                    }
+                    else if (evnt === "74")
+                    {
+                        setText("Type <b>show me out please</b> to convince her to let you out.");
+                        expectInput = true;
+                        evnt = "75";
+                    }
+                    else if (evnt === "75" && input === "show me out please")
+                    {
+                        noInput();
+                        setText("\”I'm sorry. It's not that we don't want you to leave, but we can't make exceptions to the rules.\”");
+                        evnt = "76";
+                    }
+                    else if (evnt === "76")
+                    {
+                        setText("\”The service is just one hour.\”");
+                        evnt = "77";
+                    }
+                    else if (evnt === "77")
+                    {
+                        setText("The third ring from the bell sounds and the people in the seats end their quiet conversations.");  
+                        evnt = "78";
+                    }
+                    else if (evnt === "78")
+                    {
+                        setText("More and more of them have turned their heads and are looking straight at you.");
+                        evnt = "79";
+                    }
+                    else if (evnt === "79")
+                    {
+                        setText("\"Let's not disturb the peace of the church more than necessary.\"");
+                        evnt = "80";
+                    }
+                    else if (evnt === "80")
+                    {
+                        setText("She grabs your arm gently and gives it a little pull as she begins to walk up the aisle.");
+                        evnt = "81";
+                    }
+                    else if (evnt === "81")
+                    {
+                        setText("Everyone is looking now."); 
+                        evnt = "82";
+                    }
+                    else if (evnt === "82")
+                    {
+                       setText("Type <b>resist</b> to try and stand your ground.");
+                       addText("Type <b>follow</b> to follow her to your seat.");
+                       expectInput = true;
+                       evnt = "83";
+                    }
+                    else if (evnt === "83" && input === "follow")
+                    {
+                        noInput();
+                        setText("Caroline doesn't seem happy with you when you find your seat beside her.");
+                        if (communicateWantToLeave === false)
+                        {
+                            carolineAttachmentToChurch++;
+                        }
+                        
+                        evnt = "84_1";
+                    }
+                    else if (evnt === "84_1")
+                    {
+                        setText("The priestess leaves you and walks up to the altar. She is wearing a black robe.");
+                        evnt = "90_I";
+                    }
+                    else if (evnt === "83" && input === "resist")
+                    {
+                        setText("Wihtout making too much of a scene you try to get out of her grip.");
+                        noInput();
+                        evnt = "84";
+                    }
+                    else if (evnt === "84")
+                    {
+                        setText("She is surprisingly strong.");
+                        evnt = "85";
+                    }
+                    else if (evnt === "85")
+                    {
+                        setText("She drags you the last way against your will and places you by Caroline.");
+                        evnt = "86";
+                    }    
+                    else if (evnt === "86")
+                    {
+                        setText("All around you, you see disapproving faces staring at you.");//TN) Maybe just 'staring at you.' (k)
+                        evnt = "87";
+                    }
+                    else if (evnt === "87")
+                    {
+                        setText("Caroline looks down, she is clearly ashamed.");
+                        evnt = "88";
+                        if (communicateWantToLeave === true)
+                        {
+                            carolineAttachmentToChurch--;
+                        }
+                        else
+                        {
+                            carolineAffection--;
+                        }
+                    }
+                    else if (evnt === "88")
+                    {
+                        setText("The Priestess walks up to the altar.");
+                        evnt = "90_I";
+                    }
+                    else if (evnt === "90_I")
+                    {
+                        setText("There she raises her hands and looks straight ahead with an aggressive posture.");
+                        evnt = "90";
+                    }
+                    else if (evnt === "90")
+                    {
+                        setText("\"We have a lost soul with us today,\" she begins authoritatively.");
+                        evnt = "91";
+                    }
+                    else if (evnt === "91")
+                    {
+                        setText("\"Our beloved Caroline has asked <i>us</i> to help him.\"");
+                        evnt = "92";
+                    }
+                    else if (evnt === "92")
+                    {
+                        setText("You feel Caroline's shy hand in yours.");
+                        evnt = "93";
+                    }
+                    else if (evnt === "93")
+                    {
+                        expectInput = true;
+                        setText("Type <b>remove hand</b> to remove your hand from Carolines.");
+                        addText("Type <b>hold hand</b> to let her hold your hand.");
+                        evnt = "94";
+                    }
+                    else if (evnt === "94" && (input === "remove hand" || input === "hold hand"))
+                    {
+                        if (input === "hold hand")
+                        {
+                            carolineAffection++;
+                            holdHand = true;
+                        }
+                        setText("\"He has wandered without a goal. Without a mission.\"");
+                        noInput();
+                        evnt = "95";
+                    }
+                    else if (evnt === "95")
+                    {
+                        setText("\"Without <i>God</i>.\"");
+                        evnt = "96";
+                    }
+                    else if (evnt === "96")
+                    {
+                        setText("\"But through <i>our</i> disciple he found his way back.\"");  
+                        evnt = "97";
+                    }
+                    else if (evnt === "97")
+                    {
+                        setText("\"And it is our <i>duty</i> to strengthen this new formed bond.\"");
+                        evnt = "98";
+                    }
+                    else if (evnt === "98")
+                    {
+                        setText("\"Young man, <i>are</i> you prepared to come up here and receive our blessing and become an associate of the Church of the Second Messiah?\"");
+                        evnt = "99";
+                    }
+                    else if (evnt === "99")
+                    {
+                        setText("While the Priestess looks at you awaiting your answer, Caroline whispers in your ear, \"If you get the blessing we are allowed to be together.\"");
+                        evnt = "100";
+                    }
+                    else if (evnt === "100")
+                    {
+                        setText("Type <b>walk up to altar</b> to walk up to the altar.");
+                        addText("Type <b>stay seated</b> to refuse the blessing.");
+                        evnt = "101";
+                        expectInput = true;
+                    }
+                    else if ((evnt === "101" && input === "stay seated") || evnt === "103_10")
+                    {
+                        setText("\"Do <i>not</i> be ashamed of your weakness of faith, young one.\"");
+                        if (holdHand === true && communicateWantToleave === true)
+                        {
+                            carolineAttachmentToChurch--;
+                        }
+                        noInput();
+                        evnt = "101_1";
+                    }
+                    else if (evnt === "101_1")
+                    {
+                        setText("\"We only pray that you find the strength to follow the will of God.\"");
+                        evnt = "101_2";
+                    }
+                    else if (evnt === "101_2")
+                    {
+                        evnt = "101_3";
+                        setText("\"When you are ready, <i>then</i> come to us and let us redeem you.\"");
+                    }
+                    else if (evnt === "101_3")
+                    {
+                        scene = "4";
+                        evnt = "0";
+                        if(holdHand === true)
+                        {
+                            setText("Caroline lets go of your hand.");      
+                            holdHand = false;
+                        }
+                        else
+                        {
+                            setText("Caroline gives you a disappointed look.");
+                            carolineAffection--;
+                        }
+                    }
+                    
+                    // END HERE!!!!
+                    // END HERE!!!!
+                    // END HERE!!!!
+                    else if (evnt === "101" && input === "walk up to altar")
+                    {
+                        setText("\"Come to me young man and kneel before me.\"");
+                        holdHand = false;
+                        evnt = "102";
+                        noInput();
+                    }
+                    else if (evnt === "102")
+                    {
+                        setText("Type <b>kneel down</b> to kneel before the Priestess.");
+                        addText("Type <b>do nothing</b> to keep standing demonstratively.");
+                        expectInput = true;
+                        evnt = "103";
+                    }
+                    else if (evnt === "103" && input === "do nothing")
+                    {
+                        setText("The priestess gives you a harsh look.");
+                        evnt = "103_1";
+                        noInput();
+                    }
+                    else if (evnt === "103_1")
+                    {
+                        setText("\"Kneel!\” she hisses through her teeth, quiet enough so only you can hear it.");
+                        evnt = "103_2";
+                    }
+                    else if (evnt === "103_2")
+                    {
+                        setText("Type <b>kneel down</b> to kneel.");
+                        addText("Type <b>make a fuss</b> to turn and speak to the people about how God doesn't exist.");
+                        expectInput = true;
+                        evnt = "103_3";
+                    }
+                    else if (evnt === "103_3" && input === "make a fuss")
+                    {
+                        madeFuss = true;
+                        setText("Two men in the front row quickly get up from their seats.");
+                        evnt = "103_4";
+                        noInput();
+                        carolineAffection--;
+                    }
+                    else if (evnt === "103_4")
+                    {
+                        setText("They grab you by your arms and start dragging you down to yours.");
+                        evnt = "103_5";
+                    }
+                    else if (evnt === "103_5")
+                    {
+                        setText("Type <b>start yelling</b> to express frustration.");
+                        addText("Type <b>do nothing</b> to let them seat you.");
+                        expectInput = true;
+                        evnt = "103_6";
+                    }
+                    else if (evnt === "103_6" && input === "do nothing")
+                    {
+                        evnt = "103_9";
+                        noInput();
+                        nextEvent();
+                    }
+                    else if (evnt === "103_6" && input === "start yelling")
+                    {
+                        carolineAffection--;
+                        setText("The men tighten their grip as you begin to yell.");
+                        evnt = "103_7_I";
+                        noInput();
+                    }
+                    else if (evnt === "103_7_I")
+                    {
+                        setText("The onlookers in the pews don't seem to react to your spectacle, they just stare.");
+                        evnt = "103_7";
+                    }
+                    else if (evnt === "103_7")
+                    {
+                        setText("One woman looks at you with penetrating sympathy.");
+                        evnt = "103_8";
+                    }
+                    else if (evnt === "103_8")
+                    {
+                        setText("A feeling of helplessness overpowers you and you quickly become silent again.");
+                        evnt = "103_8_I";
+                    }
+                    else if (evnt === "103_8_I")
+                    {
+                        setText("When you get seated the priestess looks at you indulgently.");  
+                        evnt = "103_10";
+                    }
+                    else if (evnt === "103_9")
+                    {
+                        setText("When you get seated the priestess looks at you forgivngly.");  
+                        evnt = "103_10";
+                    }
+                    else if ((evnt === "103" || evnt === "103_3") && input === "kneel down")
+                    {
+                        setText("\"By receiving our blessing you become an adherent of our church and thereby agree to help us, as we will help you, in our mission to bring the Second Messiah to this corrupted world and God to all.\"");     //TN) Maybe 'and to bring God to all.'
+                        noInput();
+                        evnt = "104";
+                    }
+                    else if (evnt === "104")
+                    {
+                        setText("She places her hand on your head.");
+                        evnt = "105";
+                    }
+                    else if (evnt === "105")
+                    {
+                        setText("Type <b>do nothing</b> to accept her blessing.");
+                        evnt = "106";
+                        expectInput = true;
+                    }
+                    else if (evnt === "106" && input === "do nothing")
+                    {
+                        setText("She starts to mumble something quietly.");
+                        evnt = "107";
+                        noInput();
+                    }
+                    else if (evnt === "107")
+                    {
+                        setText("Her grip on your scalp tightens as she raises her voice.");
+                        evnt = "108";
+                    }
+                    else if (evnt === "108")
+                    {
+                        setText("\"...<i>he</i> will embrace the spirit growing within.\"");
+                        evnt = "109";
+                    }
+                    else if (evnt === "109")
+                    {
+                        setText("\"And never know doubt in his actions\"");
+                        evnt = "109_I";
+                    }
+                    else if (evnt === "109_I")
+                    {
+                        setText("She bows down and kisses you on your forehead.");
+                        evnt = "110";
+                    }
+                    else if (evnt === "110")
+                    {
+                        setText("\"Walk now, with the light of god and the love of our church.\"");
+                        evnt = "111";
+                    }
+                    else if (evnt === "111")
+                    {
+                        setText("She kisses you again.");
+                        evnt = "112";
+                    }
+                    else if (evnt === "112")
+                    {
+                        setText("\"You are family now, \" she says with a kind smile, then gestures you to get back to your seat.");
+                        evnt = "113";
+                        carolineAffection++;
+                        carolineAttachmentToChurch++;
+                        blessed = true;
+                    }
+                    else if (evnt === "113")
+                    {
+                        setText("Type <b>find your seat</b> to get down and find your seat.");
+                        evnt = "114";
+                        expectInput = true;
+                    }
+                    else if (evnt === "114" && input === "find your seat")
+                    {
+                        noInput();
+                        evnt = "a1";
+                        nextEvent();
+                    }
+                    else if (evnt === "a1")
+                    {
+                        setText("When the service is done and people are starting to leave, the priestess comes down to you and Caroline.");
+                        evnt = "a2";
+                    }
+                    else if (evnt === "a2")
+                    {
+                        setText("\"Before you two leave, I would like to talk to you upstairs.\"");
+                        evnt = "a3";
+                    }
+                    else if (evnt === "a3")
+                    {
+                        setText("Type <b>go upstairs</b> to follow the priestess upstairs.");
+                        evnt = "a4";
+                        expectInput = true;
+                    }
+                    else if (evnt === "a4" && input === "go upstairs")
+                    {
+                        setText("Upstairs you and Caroline seat yourselves in front of the priestess.");    
+                        evnt = "a5";
+                        noInput();
+                    }
+                    else if (evnt === "a5")
+                    {
+                        setText("\"When I laid my hand on you and gave my blessing, I felt a strong presence.\"");
+                        evnt = "a6";
+                    }
+                    else if (evnt === "a6")
+                    {
+                        setText("\"It is a strong sign from God. You two are chosen to conceive the new Messiah.\"");
+                        evnt = "a7";
+                    }
+                    else if (evnt === "a7")
+                    {
+                        setText("Caroline gasps.");
+                        evnt = "a8";
+                    }
+                    else if (evnt === "a8")
+                    {
+                        setText("\"You will have all the support you need from us.\"");    
+                        evnt = "a9";
+                    }
+                    else if (evnt === "a9")
+                    {
+                        setText("\"I hope you are prepared to carry out your responsibilities to God.\""); 
+                        evnt = "a10";
+                    }
+                    else if (evnt === "a10")
+                    {
+                        setText("\"That's all.\"");
+                        evnt = "0";
+                        scene = "4";
+                    }
+                }
+                else if (scene === "4")
+                {
+                    if (evnt === "0")
+                    {
+                            setText("Chapter IV");
+                            
+                            if(blessed === true)
+                            {
+                                evnt = "b1";
+                            }
+                            else 
+                            {
+                                evnt = "1";
+                            }
+                    }
+                    
+                        else if (evnt === "b1")
+                        {
+                            setText("\"Wow, could you believe that?!\" Caroline bursts out when you leave the church.");
+                            evnt = "b2";
+                        }
+                        else if (evnt === "b2")
+                        {
+                            setText("\"I can't figure out if I'm more excited or more scared.\"");
+                            evnt = "b3";
+                        }
+                        else if (evnt === "b3")
+                        {
+                            setText("\"But it's like everything makes sense.\"");
+                            evnt = "b4";
+                        }
+                        else if (evnt === "b4")
+                        {
+                            setText("\"Like everything I have ever done could only have led to this.\"");
+                            evnt = "b6";
+                        }
+                        else if (evnt === "b6")
+                        {
+                            setText("\"What are you thinking?\"");
+                            evnt = "b7";
+                        }
+                        else if (evnt === "b7")
+                        {
+                            setText("\"Say something!\"");
+                            evnt = "b8";
+                        }
+                        else if (evnt === "b8")
+                        {
+                            setText("Type <b>it's too far out</b> to tell Caroline that you think the Priestess has lost it.");
+                            addText("Type <b>I don't know</b> to express doubt.");
+                            evnt = "b9";
+                            expectInput = true;
+                        }
+                        else if (evnt === "b9" && (input === "I don't know" || input === "i dont know"))
+                        {
+                            noInput();
+                            setText("\"But can't you feel it?\"");
+                            evnt = "b10";
+                        }
+                        else if (evnt === "b10")
+                        {
+                            setText("\"God is flirting with us.\"");
+                            evnt = "b11";
+                        }
+                        else if (evnt === "b11")
+                        {
+                            setText("\"I never thought thinking about God could be erotic.\"");
+                            evnt = "b12";
+                        }
+                        else if (evnt === "b12")
+                        {
+                            evnt = "b13";
+                        }
+                        else if (evnt === "b13")
+                        {
+                            setText("Type <b>smile at her</b> to try to keep her encouraged.");
+                            addText("Type <b>it's wrong</b> to express distaste.");
+                            evnt = "b14";
+                            expectInput = true;
+                        }
+                        else if (evnt === "b14" && input === "smile at her")
+                        {
+                            setText("\"You don't seem that excited.\"");
+                            evnt = "b15_1";
+                            noInput();
+                        }
+                        else if (evnt === "b15_1")
+                        {
+                            setText("\"If you feel a bit overwhelmed I can understand.\"");
+                            evnt = "b15_2";
+                        }
+                        else if (evnt === "b15_2")
+                        {
+                            setText("Type <b>maybe</b> to kind of agree.");
+                            addText("Type <b>it's wrong</b> to express distaste");
+                            expectInput = true;
+                            evnt = "b15_3";
+                        }
+                        else if (evnt === "b15_3" && input === "maybe")
+                        {
+                            setText("She gently grabs your hand.");
+                            evnt = "b15_4";
+                            noInput();
+                        }
+                        else if (evnt === "b15_4" || (evnt === "b17" && (input === "I guess not" || input === "i guess not")))
+                        {
+                            noInput();
+                            setText("\"Just know that God is in every one of us.\"");
+                            evnt = "b15_5";
+                        }
+                        else if (evnt === "b15_5")
+                        {
+                            setText("\"In the son of God, he's is just a bit more present.\""); 
+                            evnt = "b15_6";
+                        }
+                        else if (evnt === "b15_6")
+                        {
+                            setText("\"The priestess says that there are many children actually born with the potential to become the son of God.\"");
+                            evnt = "b15_7";
+                        }
+                        else if (evnt === "b15_7")
+                        {
+                            setText("\"But those children need the right cultivation.\"");
+                            evnt = "b15_8";
+                        }
+                        else if (evnt === "b15_8")
+                        {
+                            setText("\"That's why our church is so important.\"");
+                            evnt = "b15_9";
+                        }
+                        else if (evnt === "b15_9")
+                        {
+                            setText("Carolines expression becomes serious.");
+                            evnt = "b15_10";
+                        }
+                        else if (evnt === "b15_10")
+                        {
+                            setText("\"It's really important to me that you can accept this.\"");
+                            evnt = "b15_11";
+                        }
+                        else if (evnt === "b15_11")
+                        {
+                            setText("Type <b>I can</b> to say that you can accept it.");
+                            addText("Type <b>I'm sorry</b> to apologize for not being able to accept it.");
+                            evnt = "b15_12";
+                            expectInput = true;
+                        }
+                        else if (evnt === "b15_12" && input === "im sorry")
+                        {
+                            noInput();
+                            setText("Caroline looks away.");
+                            evnt = "b15_12_1";
+                        }
+                        else if (evnt === "b15_12_1")
+                        {
+                            setText("\"I understand.\"");
+                            evnt = "b15_12_2";
+                        }
+                        else if (evnt === "b15_12_2")
+                        {
+                            setText("You can hear the disappointment in her voice.");
+                            evnt = "b15_12_3";
+                        }
+                        else if (evnt === "b15_12_3")
+                        {
+                            setText("Type <b>apologize again</b> to apologize again.");
+                            addText("Do nothing to not apologize again.");
+                            expectInput = true;
+                            evnt = "b15_12_4";
+                            fadeOut(20);
+                            setTimeout(function(){
+                                if (evnt === "b15_12_4")
+                                {
+                                    evnt === "ENDED";
+                                    nextEvent();
+                                }
+                            },20000);
+                        }
+                        else if (evnt === "b15_12_4" && input === "apologize again")
+                        {
+                            fadeIn(3);
+                            setText("Caroline seems helpless for a second.");
+                            evnt = "b15_12_5";
+                            noInput();
+                        }
+                        else if (evnt === "b15_12_5")
+                        {
+                            setText("\"Well,\" she says, as if speaking to no one especially.");
+                            evnt = "b15_12_6";
+                            noInput();
+                        }
+                        else if (evnt === "b15_12_6")
+                        {
+                            setText("\"I guess I should be on my way then.\"");
+                            evnt = "b15_12_7";
+                        }
+                        else if (evnt === "b15_12_7")
+                        {
+                            setText("She hesitates for a few seconds, \"take care,\" then turns and walks away slowly.");
+                            evnt = "THEEND";
+                        }
+                        else if (evnt === "b15_12" && (input === "I can" || input === "i can"))
+                        {
+                            noInput();
+                            setText("Caroline looks satisfied.");
+                            evnt = "b15_13";
+                        }
+                        else if (evnt === "b15_13")
+                        {
+                            setText("\"Good.\"");
+                            evnt = "0";
+                            scene = "5";
+                        }
+                        else if (evnt === "b14" && (input === "it's wrong" || input === "its wrong"))
+                        {
+                            noInput();
+                            setText("\"Are you jealous?\"");
+                            evnt = "b15";
+                        }
+                        else if (evnt === "b15" || ((evnt === "b15_3" || evnt === "b15_12") && (input === "it's wrong" || input === "its wrong")))
+                        {
+                            setText("\"You don't wanna share me with God?\"");
+                            evnt = "b16";
+                            noInput();
+                        }
+                        else if (evnt === "b16")
+                        {
+                            setText("Type <b>it's just wrong</b> to insist that it's wrong.");
+                            addText("Type <b>I guess not</b> to consent.");
+                            evnt = "b17";
+                            expectInput = true;
+                        }
+                        else if (evnt === "b17" && (input === "it's just wrong" || input === "its just wrong"))
+                        {
+                            setText("\"If that's how you really feel, then I don't know why you even got the blessing from the Priestess.\"");
+                            evnt = "6";
+                            noInput();
+                        }
+                        else if (evnt === "b9" && (input === "it's too far out" || input === "its too far out"))
+                        {
+                            noInput();
+                            setText("\"I know it sounds crazy.\"");
+                            evnt = "b9";
+                            input = "I don't know";
+                        }
+                        // not blessed
+                        else if (evnt === "1")
+                        {
+                            if (madeFuss === true)
+                            {
+                                setText("\"What on earth did you think you were doing in there!?\" Caroline almost screams as you both leave the church.");   
+                            }
+                            else
+                            {
+                                setText("\"How could you just sit there and refuse the blessing?\" Caroline says with indignation as you both walk out of the church.");
+                            }
+                            evnt = "2";
+                        }
+                        else if (evnt === "2")
+                        {
+                            if (madeFuss === true)
+                            {
+                                setText("\"Do you have <i>any</i> idea how embarrassed I am?\"");
+                            }
+                            else
+                            {
+                                setText("\"Do you have <i>any</i> idea how disappointed I am?\"");
+                            }
+                            evnt = "3";
+                        }
+                        else if (evnt === "3")
+                        {
+                            setText("Type <b>fight back</b> to say that you never promised anything.");
+                            addText("Type <b>apologize</b> to say that you are sorry.");
+                            expectInput = true;
+                            evnt = "4";
+                        }
+                        else if (evnt === "4" && input === "apologize")
+                        {
+                            setText("\"Don't think you can just apologize and everything is ok.\"");
+                            apologized = true;
+                            evnt = "5_1";
+                            noInput();
+                        }
+                        else if (evnt === "5_1")
+                        {
+                            setText("\"How do you think the church will look at me now?\"");
+                            evnt = "6";
+                        }
+                        else if (evnt === "4" && input === "fight back")
+                        {
+                            setText("\"You could still have gone through with it, at least for my sake!\"");
+                            evnt = "5";
+                            noInput();
+                        }
+                        else if (evnt === "5")
+                        {
+                            setText("\"But you are right, I guess I just expected too much of you.\"");
+                            evnt = "6";
+                        }
+                        else if (evnt === "6")
+                        {
+                            setText("Caroline speeds up her walk drastically.");
+                            evnt = "7";
+                        }
+                        else if (evnt === "7")
+                        {
+                            setText("Type <b>keep up</b> to keep up with her fast pace.");
+                            addText("Type <b>don't follow</b> to slow down.");
+                            evnt = "8";
+                            expectInput = true;
+                        }
+                        else if (evnt === "8" && (input === "don't follow" || input === "dont follow"))
+                        {
+                            setText("As you watch the distance between you and her widen, a part of you hope that she will turn and wait for you.");
+                            evnt = "9_1";
+                            noInput();
+                        }
+                        else if (evnt === "9_1")
+                        {
+                            setText("You start to get nervous. It doesn't seem like she has any intention of stopping.");
+                            evnt = "9_2";
+                        }
+                        else if (evnt === "9_2")
+                        {
+                            setText("Type <b>run after her</b> to catch up with her.");
+                            addText("Do nothing to let her go.");
+                            expectInput = true;
+                            evnt = "9_3";
+                            fadeOut(20);
+                            setTimeout(function(){
+                                if (evnt === "9_3")
+                                {
+                                    letHerGo = true;
+                                    nextEvent();
+                                }
+                            },20000);
+                        }
+                        else if (evnt === "9_3" && letHerGo === true)
+                        {
+                            evnt = "ENDED";
+                        }
+                        else if (evnt === "9_3" && input === "run after her")
+                        {
+                            fadeIn(1,5);
+                            noInput();
+                            setText("After a short sprint you are quickly behind her.");
+                            evnt = "9";
+                        }
+                        else if (evnt === "9_3" && input === "let her go")
+                        {
+                            evnt = "THEEND";
+                            noInput();
+                            nextEvent();
+                        }
+                        else if (evnt === "8" && input === "keep up")
+                        {
+                            if (blessed === true)
+                            {
+                               setText("\"Why are you following me? You obviously don't care about me or the church.\”");     
+                            }
+                            else
+                            {
+                                setText("\"Why are you following me? You obviously don't care if you could embarrass me like that!\""); 
+                            }
+                           evnt = "9";
+                           noInput();
+                        }
+                        else if (evnt === "9")
+                        {
+                            setText("Type <b>grab her arm</b> to stop her.");
+                            expectInput = true;
+                            evnt = "10";
+                        }
+                        else if (evnt === "10" && input === "grab her arm")
+                        {
+                            setText("She stops and turns abruptly.");
+                            evnt = "11";
+                            noInput();
+                        }
+                        else if (evnt === "11")
+                        {
+                            setText("She has tears in her eyes.");
+                            evnt = "12";
+                        }
+                         else if (evnt === "12")
+                        {
+                            setText("\"What?!\"");
+                            
+                            if (blessed === false)
+                            {
+                                evnt = "13";
+                            }
+                            else
+                            {
+                                evnt = "b18";
+                            }
+                        }
+                        else if (evnt === "b18")
+                        {
+                            setText("Type <b>apologize</b> to apologize.");
+                            addText("Type <b>kiss her</b> to try and kiss her");
+                            evnt = "b19";
+                            expectInput = true;
+                        }
+                        else if (evnt === "b19" && input === "apologize")
+                        {
+                            setText("\"Don't apologize. It's not just your fault.\"");
+                            evnt = "b19_1";;
+                            noInput();
+                        }
+                        else if (evnt === "b19_1")
+                        {
+                            setText("\"I just expected too much of you.\"");
+                            evnt = "27_2";
+                        }
+                        else if (evnt === "b19" && input === "kiss her")
+                        {
+                            noInput();
+                            setText("You try to kiss her, but she pulls back.");
+                            evnt = "15";
+                        }
+                        else if (evnt === "13")
+                        {
+                            setText("Type <b>comfort</b> to try to comfort Caroline.");
+                            if(apologized === true)
+                            {
+                                addText("Type <b>apologize</b> to apologize again.");
+                            }
+                            else
+                            {
+                                addText("Type <b>apologize</b> to apologize.");
+                            }
+                            evnt = "14";
+                            expectInput = true;
+                        }
+                        else if (evnt === "14" && apologized === false && input === "apologize")
+                        {
+                            noInput();
+                            apologized = true;
+                            if(carolineAffection > carolineAttachmentToChurch)
+                            {
+                                evnt = "16_I";
+                                nextEvent();
+                            }
+                            else
+                            {
+                                setText("\”You don't get it do you?!\”");
+                                evnt = "14_2_1";
+                            }
+                        }
+                        else if (evnt === "14_2_1")
+                        {
+                            setText("\”You embarrassed me in front of everyone!\”");
+                            evnt = "14_2_2";
+                        }
+                        else if (evnt === "14_2_2")
+                        {
+                            setText("\”Just leave me alone.\”");
+                            evnt = "THEEND";
+                        }
+                        else if (evnt === "14" && apologized === true && input === "apologize")
+                        {
+                            setText("\”Please, stop apologizing!\”");
+                            evnt = "14_1";
+                            noInput();
+                        }
+                        else if (evnt === "14_1")
+                        {
+                            setText("\”It's not all your fault.\”");                
+                            evnt = "b19_1";
+                        }
+                        else if (evnt === "14" && input === "comfort")
+                        {
+                            noInput();
+                            carolineAffection++;
+                            if(carolineAffection > carolineAttachmentToChurch)
+                            {
+                                setText("She begins to cry as you hold her tight.");
+                                evnt = "15";
+                            }
+                            else
+                            {
+                                setText("You try to comfort her, but she doesn't seem to respond.");
+                                evnt = "20_I";
+                            }
+                            
+                        }
+                        else if (evnt === "15")
+                        {
+                            setText("\"I'm sorry.\"");
+                            evnt = "16_I";
+                        }
+                        else if (evnt === "16_I")
+                        {
+                            setText("\”I'm so confused.\”");
+                            evnt = "16";
+                        }
+                        else if (evnt === "16")
+                        {
+                            if (blessed === true)
+                            {
+                                setText("\"You're right.\"");
+                                evnt = "b16_1";
+                            }
+                            else
+                            {
+                                setText("\"This wasn't how it was supposed to be.\"");
+                                evnt = "17";  
+                            }
+                        }
+                        else if (evnt === "b16_1")
+                        {
+                            setText("\"Maybe it's wrong, I don't know\", she says and bursts into to tears."); 
+                            evnt = "17";
+                        }
+                        else if (evnt === "17")
+                        {
+                            setText("Type <b>I love you</b> to tell her that you love her.");
+                            addText("Type <b> it's ok</b> to soothe her.");
+                            expectInput = true;
+                            evnt = "18";
+                        }
+                        else if (evnt === "18" && (input === "I love you" || input === "i love you"))
+                        {
+                            noInput();
+                            setText("Her crying becomes uncontrollable for a while before she continues to speak.");
+                            evnt = "19";
+                            carolineAffection++;
+                        }
+                        else if (evnt === "19" || (evnt === "18" && input === "its ok"))
+                        {
+                            setText("\"You don't understand,\" she says with tears down her face.");
+                            evnt = "20";
+                            noInput();
+                        }
+                        else if (evnt === "20_I")
+                        {
+                            setText("\"You don't understand,\" she says.");
+                            evnt = "20";
+                        }
+                        else if (evnt === "20")
+                        {
+                            setText("\"The Priestess wanted me to find new people for the church.\"");
+                            evnt = "21";
+                        }
+                        else if (evnt === "21")
+                        {
+                            setText("\"So I went out of my way to please her.\"");
+                            evnt = "22";
+                        }
+                        else if (evnt === "22")
+                        {
+                            setText("\"Not thinking about how it would make you feel.\"");
+                            evnt = "23";
+                        }
+                        else if (evnt === "23")
+                        {
+                            setText("\"I'm so sorry, please forgive me.\"");
+                            evnt = "25";
+                        }
+                        else if (evnt === "25")
+                        {
+                            setText("Type <b>forgive</b> to forgive Caroline.");
+                            addText("Do nothing to not forgive.");                
+                            evnt = "26";
+                            expectInput = true;
+                            fadeOut(20);
+                            setTimeout(function(){
+                                if (evnt === "26")
+                                {
+                                    evnt = "ENDED";
+                                    nextEvent();
+                                }
+                            },20000);
+                        }
+                        else if (evnt === "26_noInput")
+                        {
+                            setText("She is quiet for a second.");
+                            evnt = "27_1";
+                            noInput();
+                        }
+                        else if (evnt === "27_1")
+                        {
+                            setText("\"I had really hoped that it would have gone differently.\"");   
+                            evnt = "27_2";
+                            noInput();
+                        }
+                        else if (evnt === "27_2")
+                        {
+                            setText("\"I'm sorry.\"");
+                            evnt = "27_3";
+                        }
+                        else if (evnt === "27_3")
+                        {
+                           setText("\"I really am.\"");
+                           evnt = "THEEND";
+                        }
+                        else if (evnt === "26" && input === "forgive")
+                        {
+                            fadeIn(1,5);
+                            noInput();
+                            if (blessed === true)
+                            {
+                                evnt = "b_f_1";
+                            }
+                            else if (carolineAffection > carolineAttachmentToChurch)
+                            {  
+                                evnt = "27_I";
+                            }
+                            else
+                            {
+                                evnt = "26_noInput";
+                            }
+                            nextEvent();
+                        }
+                        else if (evnt === "b_f_1")
+                        {
+                            setText("Carolines hugs you.");
+                            evnt = "b_f_2";
+                        }
+                        else if (evnt === "b_f_2")
+                        {
+                            setText("\”I'm glad you understand.\”");
+                            evnt = "THEEND";
+                        }
+                        else if (evnt === "27_I")
+                        {
+                            setText("Caroline looks up at you with a hint of happiness in her eyes.");
+                            evnt = "27";
+                        }
+                        else if (evnt === "27")
+                        {
+                            setText("Then gives you a long heartfelt kiss on the mouth.");
+                            evnt = "28";
+                        }
+                        else if (evnt === "28")
+                        {
+                            setText("\”It's strange,\” she says, \”before all this, I felt the church was the most important thing in the world to me.\”");
+                            evnt = "29";
+                        }
+                        else if (evnt === "29")
+                        {
+                            setText("\”Now I just feel free.\”");
+                            evnt = "30";
+                        }
+                        else if (evnt === "30")
+                        {
+                            setText("She gives you another quick kiss on the mouth.");  
+                            evnt = "31";
+                        }
+                        else if (evnt === "31")
+                        {
+                            setText("\”You know what.\"");
+                            evnt = "32";
+                        }
+                        else if (evnt === "32")
+                        {
+                            setText("\”We have our whole life ahead of us.\”");
+                            evnt = "THEEND";
+                        }
+                        else if (evnt === "THEEND")
+                        {
+                            fadeOut(4);
+                            clearSave();
+                        }
+                        else if (evnt === "ENDED")
+                        {
+                            clearSave();
+                        }
+                    }
+                    else if (scene === "5")
+                    {
+                        if (evnt === "0")
+                        {
+                            setText("Chapter V");
+                            evnt = "1";
+                        }
+                        else if (evnt === "1")
+                        {
+                            setText("Back at Carolines place.");
+                            evnt = "2";
+                        }
+                        else if (evnt === "2")
+                        {
+                            setText("She pushes you down on her couch in her living room with a mischievous smile.");
+                            evnt = "3";
+                        }
+                        else if (evnt === "3") 
+                        {
+                            setText("Looks you in the eyes while she takes off her top and exposes her medium sized breasts and her white bra.");
+                            evnt = "3_I";
+                        }
+                        else if (evnt === "3_I")
+                        {
+                            setText("After that, she slips out of her jeans, leaving her only in underwear before she slowly, but forcefully gets on top you.");
+                            evnt = "4";
+                        }
+                        else if (evnt === "4")
+                        {
+                            setText("You feel yourself getting hard, and she feels it too.");
+                            evnt = "5";
+                        }
+                        else if (evnt === "5")
+                        {
+                            setText("Type <b>kiss her</b> to kiss her.");
+                            addText("Type <b>do nothing</b> to let her make the next move.");
+                            addText("Type <b>pull back</b> to avoid her sexual offensive.");
+                            expectInput = true;
+                            evnt = "6";
+                        }
+                        else if (evnt === "6" && input === "kiss her")
+                        {
+                            noInput();
+                            setText("You kiss intensely for several seconds.");
+                            evnt = "6_I";
+                        }
+                        else if ((evnt === "6" && (input === "do nothing" || input === "pull back")) || evnt === "6_I")
+                        {
+                            setText("Caroline rubs her hands on your chest and moves them down to the bottom of your shirt."); 
+                            evnt = "7";
+                            noInput();
+                        }
+                        else if (evnt === "7")
+                        {
+                            setText("Pulls it up and kisses you gently on your bare stomach.");
+                            evnt = "8";
+                        }
+                        else if (evnt === "8")
+                        {
+                            setText("She then tries to pull your shirt off.");     
+                            evnt = "9";
+                        }
+                        else if (evnt === "9")
+                        {
+                            setText("Type <b>lift arms</b> to help her get the shirt off.");
+                            addText("Type <b>resist</b> to stop her from taking off your shirt.");
+                            evnt = "10";
+                            expectInput = true;
+                        }
+                        else if (evnt === "10" && input === "resist")
+                        {
+                            forced = true;
+                            noInput();
+                            setText("\”What's wrong?\”");
+                            evnt = "10_1";
+                        }
+                        else if (evnt === "10_1")
+                        {
+                            setText("Caroline looks annoyed, \"Don't toy with me.\"");
+                            evnt = "10_2";
+                        }
+                        else if (evnt === "10_2")
+                        {
+                            setText("She gets up and takes off her underwear.");
+                            evnt = "10_3";
+                        }
+                        else if (evnt === "10_3")
+                        {
+                            setText("\”I only want to make you feel good.\"");    
+                            evnt = "10_4";
+                        }
+                        else if (evnt === "10_4")
+                        {
+                            setText("With one hand she suddenly grabs you by the throat and with the other she manages to pull down your trousers and get your penis out.");
+                            evnt = "10_5";
+                        }
+                        else if (evnt === "10_5")
+                        {
+                            setText("\”Don't fight it,\” she says. Her voice seems deeper.");
+                            evnt = "10_6";
+                        }
+                        else if (evnt === "10_6")
+                        {
+                            setText("Type <b>break free</b> to try and force your way free.");
+                            expectInput = true;
+                            evnt = "10_7";
+                        }
+                        else if (evnt === "10_7" && input === "break free")
+                        {
+                            setText("\”It's futile. I have you in my power now.\”");
+                            noInput();
+                            evnt = "10_8";
+                        }
+                        else if (evnt === "10_8")
+                        {
+                            setText("Somehow she is right, your body doesn't cooperate at all.");
+                            evnt = "10_9";
+                        }
+                        else if (evnt === "10_9")
+                        {
+                            setText("\”Just try and enjoy it.\”");
+                            evnt = "19";
+                        }
+                        else if (evnt === "10" && input === "lift arms")
+                        {
+                            noInput();
+                            setText("She throws the shirt on the floor.");
+                            evnt = "12";
+                        }
+                        else if (evnt === "12")
+                        {
+                            setText("Then bends down and kisses you on the mouth.");
+                            evnt = "13";
+                        }
+                        else if (evnt === "13")
+                        {
+                            setText("Type <b>take off her bra</b> to take off her bra.");
+                            evnt = "14";
+                            expectInput = true;
+                        }
+                        else if (evnt === "14" && input === "take off her bra")
+                        {
+                            noInput();
+                            setText("The bra comes right off.");
+                            evnt = "15";
+                        }
+                        else if (evnt === "15")
+                        {
+                            setText("\"What about these,\" she says teasingly while giving her white panties a little pull.");
+                            evnt = "16";
+                        }
+                        else if (evnt === "16")
+                        {
+                            setText("Type <b>take them off</b> to order her to take them off.");
+                            expectInput = true;
+                            evnt = "17";
+                        }
+                        else if (evnt === "17")
+                        {
+                            noInput();
+                            setText("She gets up on her knees and pulls them off, revealing her black pubic hair.");
+                            evnt = "18";
+                        }
+                        else if (evnt === "18")
+                        {
+                            setText("Without hesitating she pulls off your trousers.");
+                            evnt = "19_I";
+                        }
+                        else if (evnt === "19_I")
+                        {
+                            setText("Then your underwear, leaving both of you naked.");
+                            evnt = "19";
+                        }
+                        else if (evnt === "19")
+                        {
+                            setText("Carolines gently grabs your erect penis to guide it as she descents upon it.");
+                            evnt = "20";
+                        }
+                        else if (evnt === "20")
+                        {
+                            
+                            setText("Moving her pelvis in wavelike motions you feel the pleasure and start to relax.");
+                            evnt = "21";
+                        }
+                        else if (evnt === "21")
+                        {
+                            setText("You look up at her, she is radiating.");
+                            evnt = "22";
+                        }
+                        else if (evnt === "22")
+                        {
+                            setText("Type <b>hold her by the hips</b> to hold her by the hips.");
+                            addText("Type <b>do nothing</b> to do nothing.");
+                            evnt = "23";
+                            expectInput = true;
+                        }
+                        else if (evnt === "23" && (input === "hold her by the hips" || input === "do nothing"))
+                        {
+                            noInput();
+                            setText("She leans forward and moans.");
+                            evnt = "24";
+                        }
+                        else if (evnt === "24")
+                        {
+                            setText("Her grinding intensifies.");
+                            evnt = "25";
+                        }
+                        else if (evnt === "25")
+                        {
+                            setText("You feel your orgasm getting closer.");
+                            if (forced === true)
+                            {
+                                evnt = "26_1";
+                            }
+                            else
+                            {
+                                evnt = "26";
+                            }
+                        }
+                        else if (evnt === "26_1")
+                        {
+                            setText("Around the couch you notice a warm glow.");
+                            evnt = "26_2";
+                        }
+                        else if (evnt === "26_2")
+                        {
+                            setText("Smoke seem to appear from nowhere.");
+                            evnt = "26_3";
+                        }
+                        else if (evnt === "26_3")
+                        {
+                            setText("Now fire.");
+                            evnt = "26_4";
+                        }
+                        else if (evnt === "26_4")
+                        {
+                            setText("You look back at Caroline, is her skin getting darker?"); 
+                            evnt = "29";
+                        }
+                        else if (evnt === "26")
+                        {
+                            setText("From behind Caroline you see a white light forming.");
+                            evnt = "27";
+                        }
+                        else if (evnt === "27")
+                        {
+                            setText("The light starts to branch out in organic patterns.");
+                            evnt = "28";
+                        }
+                        else if (evnt === "28")
+                        {
+                            setText("It's angel wings. Caroline's angel wings!");
+                            evnt = "29";
+                        }
+                        else if (evnt === "29")
+                        {
+                            setText("As you realize this you feel the sudden pulsating release of your orgasm.");
+                            evnt = "30";
+                        }
+                        else if (evnt === "30")
+                        {
+                            if (forced === true)
+                            {
+                                setText("The fire fills the whole room.");
+                                evnt = "30_1";
+                            }
+                            else
+                            {
+                               setText("Her wings of white light fill the whole room.");
+                               evnt = "31";
+                            }
+                        }
+                        else if (evnt === "30_1")
+                        {
+                            setText("You start to panic.");
+                            evnt = "31";
+                        }
+                        else if (evnt === "31")
+                        {
+                            setText("Carolines moaning turns into a high pitch scream as her body stiffens.");
+                            evnt = "32";
+                        }
+                        else if (evnt === "32")
+                        {
+                            setText("The scream fades and her body starts shivering.");
+                            evnt = "33";
+                        }
+                        else if (evnt === "33")
+                        {
+                            setText("Then, stillness.");
+                            evnt = "34";
+                        }
+                        else if (evnt === "34")
+                        {
+                            setText("White light everywhere.");
+                            evnt = "35";
+                        }
+                        else if (evnt === "35")
+                        {
+                            fadeOut(4);
+                            clearSave();
+                        }
+                    }
+                    
+                
+                
+                if (expectInput === true)
+                {
+                    document.getElementById("inputContainer").style.display = "inline";
+                }
+            }
+            
+            function setText(text)
+            {
+                document.getElementById("output").innerHTML = text;
+            }
+            function addText(text)
+            {
+                document.getElementById("output").innerHTML += "<br /><br />" + text;
+            }
+            function addTripleLinebreak()
+            {
+                document.getElementById("output").innerHTML += "<br /><br /><br />";
+            }
+            function noInput()
+            {
+                expectInput = false;
+                document.getElementById("inputContainer").style.display = "none";
+                document.getElementById("readerInput").blur();
+            }
+            
+            function touchStart(e)
+            {
+                //e.preventDefault();
+                keyStroke(1);
+            }
+            
+            function keyStroke(e)
+            {
+                if (expectInput === true)
+                {
+                    //Enter pressed
+                    if (e.keyCode === 13)
+                    {
+                        if (document.getElementById("readerInput").value === "")
+                        {
+                            document.getElementById("readerInput").focus();
+                        }
+                        else
+                        {
+                            input = document.getElementById("readerInput").value;
+                            input = input.toLocaleLowerCase();
+                            input = input.replace("'","");
+                            document.getElementById("readerInput").value = "";
+                            nextEvent();
+                        }
+                    }
+                    else
+                    {
+                       document.getElementById("readerInput").focus();
+                    }
+                }
+                else
+                {
+                    nextEvent();
+                }
+            }
+            
+            function fadeOut(seconds)
+            {
+                
+                var elem = document.getElementById("content");
+                elem.style['-webkit-transition'] = "opacity " + seconds + "s";
+                elem.style['-o-transition'] = "opacity " + seconds + "s";
+                elem.style['-moz-transition'] = "opacity " + seconds + "s";
+                elem.style['transition'] = "opacity " + seconds + "s";
+                setTimeout(function(){
+                               elem.style.opacity = 0;
+                            },20);
+            }
+            function fadeIn(seconds)
+            {
+                var elem = document.getElementById("content");
+                elem.style['-webkit-transition'] = "opacity " + seconds + "s";
+                elem.style['-o-transition'] = "opacity " + seconds + "s";
+                elem.style['-moz-transition'] = "opacity " + seconds + "s";
+                elem.style['transition'] = "opacity " + seconds + "s";
+                setTimeout(function(){
+                               elem.style.opacity = 100;
+                            },20);
+            }
+            function fadeInById(id, seconds, opacity)
+            {
+                var elem = document.getElementById(id);
+                elem.style['-webkit-transition'] = "opacity " + seconds + "s";
+                elem.style['-o-transition'] = "opacity " + seconds + "s";
+                elem.style['-moz-transition'] = "opacity " + seconds + "s";
+                elem.style['transition'] = "opacity " + seconds + "s";
+                setTimeout(function(){
+                               elem.style.opacity = opacity;
+                            },20);
+            }
+            
+        </script>
+       
+        
+    </head>
+    <body onload="start()"  onkeydown="keyStroke(event, this)">
+        <div id="content">
+            <p contenteditable="false" spellcheck="true" id="output">Please make sure you have enabled activeX.</p>
+            <div id="inputContainer">
+                ><input type="text" id="readerInput"></input>
+                
+                
+            </div>
+            <div id="sop"></div>
+       </div>
+    </body>
+</html>
+<style>
+    
+    
+    @-ms-viewport{
+        width: device-width;
+    }
+    #sop {
+        position: fixed;
+        bottom: 50px;
+        color: #282828;
+    }
+    
+    body{
+        background-color: #F8F8F8;
+        color: #282828;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    #content{
+        width:700px;
+        height:200px;
+        margin: auto;
+        position: absolute;
+        top: 0; left: 20px; bottom: 0; right: 0;
+        -webkit-transition-property: opacity;
+        -webkit-transition: opacity 4s;
+        -moz-transition: opacity 4s;
+        -o-transition: opacity 4s;
+        transition: opacity 4s;
+        //background-color: red;
+    }
+    #output {
+        position: relative;
+        font-family: Georgia, serif;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        font-size: 17px;
+
+        
+    }
+    #inputContainer, #readerInput{
+        font-size: 17px;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        font-family: Georgia, serif;
+    }
+    #inputContainer {
+        position: relative;
+        top:16px;
+        left: 1px;
+        font-weight: bold;
+    }
+    #readerInput {
+        background-color: transparent;       
+        border:none;
+        color:#282828;
+        outline: 0;
+        width: 300px;
+    }
+    #readerInput::-ms-clear {
+        display: none;
+        outline: none;
+    }
+    #continue {
+        opacity:0;
+        -webkit-transition: opacity 2s;
+        -moz-transition: opacity 2s;
+        -o-transition: opacity 2s;
+        transition: opacity 2s;
+    }
+    #headline {
+        font-size: 46px;
+        letter-spacing: 2.5px;
+        font-weight: bold;
+        margin-left: -3px;
+        text-decoration: underline;
+    }
+    #underHeadline {
+        font-size: 21px;
+    }
+    #coverPage {
+        position: relative;
+        top: -100px;
+        width: 300px;
+        text-align: center;
+     
+    }
+</style>
